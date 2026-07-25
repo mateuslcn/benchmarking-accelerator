@@ -28,16 +28,18 @@ The **Benchmarking Accelerator** is an enterprise-grade web application designed
 
 ## System Architecture & Multi-Agent Pipeline
 
+![System Architecture Overview](./1_System_Architecture_Overview.png)
+
 ```mermaid
 graph TD
-    subgraph Client Layer [Browser Environment]
+    subgraph ClientLayer ["Client Layer (Browser Environment)"]
         UI["React Single Page Application (App.tsx)"]
         State["State Machine (AppState / Step 1-5)"]
         CSS["Report System Design Tokens (index.html)"]
         Export["PDF Export Engine (html2pdf.js)"]
     end
 
-    subgraph Service & AI Agent Layer [geminiService.ts]
+    subgraph ServiceLayer ["Service & AI Agent Layer (geminiService.ts)"]
         A1["Agent 1: Scope & Benchmark Specialist"]
         A2["Agent 2: Live Web Researcher Agent"]
         A3["Agent 3: Matrix Critic & Decision Agent (1-Pass Loop + 2nd Search)"]
@@ -45,13 +47,13 @@ graph TD
         A5["Agent 5: Executive Tech Writer & PO"]
     end
 
-    subgraph External Infrastructure
+    subgraph Infrastructure ["External Infrastructure"]
         GeminiAPI["Google GenAI API (Gemini Flash / Pro Models)"]
         GoogleSearch["Google Search Tool Grounding Engine"]
     end
 
     UI <--> State
-    UI --> Service Layer
+    UI --> A1
     A1 -->|JSON Schema Prompt| GeminiAPI
     A2 -->|Grounding Tool Request| GoogleSearch
     GoogleSearch -->|Live Web Chunks & URLs| A2
@@ -77,6 +79,8 @@ graph TD
 ---
 
 ## 1-Pass Critic Review & Refinement Sub-Loop
+
+![1-Pass Critic Review Sub-Loop](./3_One_Pass_Review_Loop_Sequence.png)
 
 ```mermaid
 sequenceDiagram
