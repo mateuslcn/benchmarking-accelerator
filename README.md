@@ -195,7 +195,7 @@ benchmarking-accelerator/
 2. Under **Build and deployment -> Source**, select **`Deploy from a branch`**.
 3. Set **Branch**: `main` and **Folder**: `/ (root)`.
 4. Click **Save**. The live app will be published at:  
-   👉 **`https://mateuslcn.github.io/benchmarking-accelerator/`**
+   **`https://mateuslcn.github.io/benchmarking-accelerator/`**
 
 ---
 
