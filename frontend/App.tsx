@@ -401,10 +401,7 @@ export default function App() {
                   if (isOurProduct) {
                     return (
                       <th className="px-5 py-3 text-left text-xs font-bold uppercase tracking-wider bg-blue-600 text-white border-x-2 border-x-blue-700 shadow-xs" {...props}>
-                        <div className="flex items-center gap-1.5">
-                          <Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300 flex-shrink-0" />
-                          <span>{displayTitle}</span>
-                        </div>
+                        <span>{displayTitle}</span>
                       </th>
                     );
                   }
@@ -429,24 +426,24 @@ export default function App() {
                   let badge = null;
                   let cleanText = rawText;
 
-                  if (/\[FULL\]|🟢/i.test(rawText)) {
+                  if (/\[FULL\]/i.test(rawText)) {
                     badge = (
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-800 mb-1.5 shadow-2xs">
-                        🟢 Full Support
+                        FULL
                       </span>
                     );
                     cleanText = rawText.replace(/\[FULL\]|🟢/gi, '').trim();
-                  } else if (/\[PARTIAL\]|🟡/i.test(rawText)) {
+                  } else if (/\[PARTIAL\]/i.test(rawText)) {
                     badge = (
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 mb-1.5 shadow-2xs">
-                        🟡 Partial
+                        PARTIAL
                       </span>
                     );
                     cleanText = rawText.replace(/\[PARTIAL\]|🟡/gi, '').trim();
-                  } else if (/\[NONE\]|🔴/i.test(rawText)) {
+                  } else if (/\[NONE\]/i.test(rawText)) {
                     badge = (
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-800 mb-1.5 shadow-2xs">
-                        🔴 Not Supported
+                        NONE
                       </span>
                     );
                     cleanText = rawText.replace(/\[NONE\]|🔴/gi, '').trim();
