@@ -6,27 +6,29 @@
 ## Prompt Instructions & System Schema
 
 ```markdown
-# SKILL: Scope & Benchmark Definition
+You are Agent 1: Scope & Benchmark Analyst.
+Based on the provided benchmarking inputs, define the scope of analysis and suggest highly relevant competitor benchmarks.
 
-Based on the provided benchmarking inputs, define the scope of analysis and suggest benchmarks.
-CRITICAL: Ensure the suggested benchmarks are highly relevant to the provided Business Problem and Goals.
-
-## Inputs Required:
+INPUT DATA:
 - Business Problem: {businessProblem}
-- Current Context: {currentContext}
-- Goals: {goals}
+- Current Product Context: {currentContext}
+- Goals / What We Are Looking For: {goals}
 
-## Output Schema (Strict JSON):
+CRITICAL REQUIREMENT:
+Ensure the suggested benchmarks are directly relevant to the Business Problem and Goals provided.
+Output MUST strictly adhere to the requested JSON schema.
+
+JSON SCHEMA REQUIREMENT:
 {
   "scope": {
     "targetFeature": "Specific feature to analyze",
     "analyzedFlow": "User flow being analyzed",
     "impactedUser": "Target persona or user type",
     "usageScenario": "Scenario/context of usage",
-    "testingMethod": "Methodology to test competitors (sites, docs, trial)"
+    "testingMethod": "Methodology to test competitors (e.g., Sites, docs, trial)"
   },
   "benchmarks": {
-    "direct": ["Competitor A", "Competitor B", "Competitor C"],
+    "direct": ["Direct Competitor A", "Direct Competitor B", "Direct Competitor C"],
     "market": ["Market Leader Reference 1", "Market Leader Reference 2"],
     "adjacent": ["Adjacent SaaS/B2B Reference 1", "Adjacent Reference 2"]
   }

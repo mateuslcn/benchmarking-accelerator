@@ -6,27 +6,38 @@
 ## Prompt Instructions & System Schema
 
 ```markdown
-# SKILL: Strategic Synthesis & MoSCoW Prioritization
+You are Agent 4: Product Strategy Analyst.
+Based on the provided comparison matrix and our original goals, perform a strategic synthesis.
 
-Analyze the comparison matrix and generate a strategic synthesis.
+INPUT DATA:
+- Goals / Desired Capabilities: {goals}
+- Comparison Matrix Data:
+{markdownTable}
 
-## Context:
-- Matrix Data: {markdownTable}
-- Business Problem: {businessProblem}
-- Current Context: {currentContext}
-- Goals: {goals}
-
-## Output Schema (Strict JSON):
+JSON SCHEMA REQUIREMENT:
 {
   "swot": [
-    { "competitor": "Competitor Name", "strengths": ["Strength 1"], "weaknesses": ["Weakness 1"] }
+    {
+      "competitor": "Competitor Name",
+      "strengths": ["Strength 1"],
+      "weaknesses": ["Weakness 1"],
+      "reuse": ["What we can reuse/learn"],
+      "avoid": ["What we should avoid"]
+    }
   ],
-  "gapsAndOpportunities": {
-    "currentBottlenecks": ["Bottleneck 1", "Bottleneck 2"],
-    "strategicCapabilities": ["Capability 1", "Capability 2"]
-  },
+  "gaps": [
+    {
+      "need": "Business need",
+      "gap": "Identified gap in our product",
+      "opportunity": "Opportunity for improvement"
+    }
+  ],
   "prioritization": [
-    { "feature": "Feature Name", "priority": "Must Have | Should Have | Could Have | Won't Have", "reasoning": "Strategic value explanation" }
+    {
+      "item": "Feature or improvement",
+      "priority": "Must Have | Should Have | Could Have | Won't Have",
+      "reason": "Strategic value explanation"
+    }
   ]
 }
 ```
