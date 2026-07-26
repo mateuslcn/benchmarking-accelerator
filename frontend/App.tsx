@@ -1011,7 +1011,7 @@ export default function App() {
                 </div>
                 <div>
                   <h2 className="font-bold text-white text-sm leading-tight">Cloud Services AI</h2>
-                  <p className="text-3xs text-slate-400">Navigation Drawer</p>
+                  <p className="text-3xs text-slate-400">Navigation Panel</p>
                 </div>
               </div>
               <button
