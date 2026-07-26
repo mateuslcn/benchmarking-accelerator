@@ -884,7 +884,7 @@ export default function App() {
               </div>
               <div>
                 <h1 className="font-bold text-gray-900 text-base leading-tight group-hover:text-blue-600 transition-colors">
-                  Accelerator Suite
+                  Cloud Services AI Suite
                 </h1>
                 <p className="text-2xs text-gray-500 leading-none">Enterprise Intelligence Portal</p>
               </div>
