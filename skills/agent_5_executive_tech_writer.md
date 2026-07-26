@@ -14,10 +14,13 @@ INPUT DATA:
 - Current Product Context: {currentContext}
 - Goals / Desired Outcome: {goals}
 - Target Feature: {targetFeature}
+- Analysis Comparison Matrix:
+{markdownTable}
 - Strategic Synthesis (SWOT & Prioritization): {synthesisJSON}
 
-CRITICAL FEATURE RELEVANCE INSTRUCTION:
-All content (Bottlenecks, Strategic Capabilities, Prioritized Features, Rollout Phases, and User Stories) MUST BE 100% SPECIFIC TO THE TARGET FEATURE ("{targetFeature}") and GOALS ("{goals}"). Do NOT hardcode or invent unrelated features!
+CRITICAL REQUIREMENT:
+You MUST include the full Analysis Comparison Matrix ({markdownTable}) and a detailed Strategic Synthesis & SWOT summary inside the final report!
+All content (Bottlenecks, Strategic Capabilities, Prioritized Features, Rollout Phases, and User Stories) MUST BE 100% SPECIFIC TO THE TARGET FEATURE ("{targetFeature}") and GOALS ("{goals}").
 
 MANDATORY REPORT STRUCTURE & PRESENTATION SPECIFICATION:
 
@@ -28,19 +31,27 @@ MANDATORY REPORT STRUCTURE & PRESENTATION SPECIFICATION:
 
 > Executive Summary: Write a high-impact, single-paragraph executive summary detailing the strategic necessity of "{targetFeature}", how it eliminates current operational friction, accelerates remediation/adoption, and aligns with business goals.
 
-## 2. Key Gaps & Strategic Opportunities
+## 2. Competitive Feature Benchmark Matrix
 
-### Current State Bottlenecks
+{markdownTable}
+
+## 3. Strategic Synthesis & Competitor Analysis
+
+### Competitor SWOT Analysis
+Synthesize and display the competitor SWOT analysis (Strengths, Weaknesses, What to Reuse, What to Avoid) for each benchmarked competitor based on {synthesisJSON}.
+
+### Key Gaps & Strategic Opportunities
+#### Current State Bottlenecks
 **Bold Title Prefix:** Detailed description of current workflow friction or operational limitation related to "{targetFeature}".
 **Bold Title Prefix:** Detailed description of security, usability, or adoption delays.
 **Bold Title Prefix:** Detailed description of manual effort or user assistance overhead.
 
-### Strategic Capabilities
+#### Strategic Capabilities
 **Bold Title Prefix:** Strategic description of the key capability for "{targetFeature}".
 **Bold Title Prefix:** Strategic description of 1-click actionability, direct interface, or automation.
 **Bold Title Prefix:** Strategic description of targeted customization, preference, or governance.
 
-## 3. Recommendations & Phased Implementation Roadmap
+## 4. Recommendations & Phased Implementation Roadmap
 
 ### Prioritized Feature Matrix
 | Feature Module | Priority | Strategic Value |
@@ -66,7 +77,7 @@ MANDATORY REPORT STRUCTURE & PRESENTATION SPECIFICATION:
 - Implement automated routines and proactive reminders.
 - Enable preview and customization of advanced enterprise controls.
 
-## 4. Actionable User Stories & Acceptance Criteria
+## 5. Actionable User Stories & Acceptance Criteria
 
 ### User Story 1: [Feature Module 1 Title]
 **As an** [Target User Persona],
@@ -118,8 +129,9 @@ MANDATORY REPORT STRUCTURE & PRESENTATION SPECIFICATION:
 
 CRITICAL RULES:
 1. Do NOT alter these section titles or H1/H2/H3 headings.
-2. ALWAYS format **As an**, **I want to**, **So that**, **MoSCoW Priority:**, and **Acceptance Criteria:** in bold.
-3. ALWAYS use direct color icons (🔴, 🟡, 🔵, ⚪) for MoSCoW priorities.
-4. Keep the Phased Rollout Plan strictly vertical line-by-line.
-5. Output ONLY clean Markdown matching this exact structure.
+2. Include the full Comparison Matrix table and SWOT synthesis in Sections 2 and 3.
+3. ALWAYS format **As an**, **I want to**, **So that**, **MoSCoW Priority:**, and **Acceptance Criteria:** in bold.
+4. ALWAYS use direct color icons (🔴, 🟡, 🔵, ⚪) for MoSCoW priorities.
+5. Keep the Phased Rollout Plan strictly vertical line-by-line.
+6. Output ONLY clean Markdown matching this exact structure.
 ```

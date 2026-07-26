@@ -265,7 +265,8 @@ export const generateSynthesis = async (matrixText: string, inputs: BenchmarkInp
 export const generateFinalReport = async (
   inputs: BenchmarkInputs,
   scope: ScopeAndBenchmarks,
-  synthesis: SynthesisResult
+  synthesis: SynthesisResult,
+  matrixText?: string
 ): Promise<string> => {
   const ai = getAIClient();
   const prompt = getSkillPrompt(agent5SkillRaw, {
@@ -273,6 +274,7 @@ export const generateFinalReport = async (
     currentContext: inputs.currentContext,
     goals: inputs.goals,
     targetFeature: scope.scope.targetFeature,
+    markdownTable: matrixText || '',
     synthesisJSON: JSON.stringify(synthesis)
   });
 

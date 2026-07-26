@@ -65,21 +65,13 @@ export default function App() {
     }
   };
 
-  const handleExportPDF = () => {
-    const element = document.getElementById('report-content');
-    if (!element) return;
-
-    if (typeof (window as any).html2pdf !== 'undefined') {
-      const opt = {
-        margin:       [20, 20, 20, 20], // 20mm margin as specified
-        filename:     'executive-benchmarking-report.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
-      (window as any).html2pdf().set(opt).from(element).save();
-    } else {
-      window.print();
+  const handleExportDOCX = async () => {
+    if (!state.reportData) return;
+    try {
+      await exportReportToDOCX(state.reportData, state.inputs);
+    } catch (err) {
+      console.error("DOCX Export error:", err);
+      alert("Failed to generate DOCX export.");
     }
   };
 
@@ -176,7 +168,12 @@ export default function App() {
           setMaxStepReached(prev => Math.max(prev, 5));
           return;
         }
-        const reportData = await generateFinalReport(state.inputs, state.scopeData, state.synthesisData);
+        const reportData = await generateFinalReport(
+          state.inputs, 
+          state.scopeData, 
+          state.synthesisData, 
+          state.matrixData?.markdownTable
+        );
         setState(prev => ({ ...prev, reportData, step: 5, isLoading: false }));
         setMaxStepReached(prev => Math.max(prev, 5));
       }
@@ -703,10 +700,10 @@ export default function App() {
           </div>
           <div className="flex items-center gap-3">
             <button 
-              onClick={handleExportPDF}
+              onClick={handleExportDOCX}
               className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium text-sm transition-colors shadow-sm"
             >
-              <Download className="w-4 h-4" /> Export PDF
+              <Download className="w-4 h-4" /> Export DOCX
             </button>
           </div>
         </div>
