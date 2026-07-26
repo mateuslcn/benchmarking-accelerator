@@ -276,91 +276,116 @@ export default function App() {
 
   const renderStep2 = () => {
     if (!state.scopeData) return null;
-    const { scope, benchmarks } = state.scopeData;
 
-    const toggleBenchmark = (name: string) => {
-      setState(prev => {
-        const current = prev.selectedBenchmarks;
-        const next = current.includes(name) 
-          ? current.filter(b => b !== name)
-          : [...current, name];
-        return { ...prev, selectedBenchmarks: next, matrixData: null, synthesisData: null, reportData: null };
-      });
-      setMaxStepReached(2);
+    const toggleBenchmark = (b: string) => {
+      setState(prev => ({
+        ...prev,
+        selectedBenchmarks: prev.selectedBenchmarks.includes(b)
+          ? prev.selectedBenchmarks.filter(item => item !== b)
+          : [...prev.selectedBenchmarks, b],
+        matrixData: null,
+        synthesisData: null,
+        reportData: null
+      }));
     };
 
+    const renderBenchmarkCheckbox = (b: string, type: string) => (
+      <label key={b} className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${state.selectedBenchmarks.includes(b) ? 'bg-blue-50 border-blue-300' : 'bg-white border-gray-200 hover:bg-gray-50'}`}>
+        <input
+          type="checkbox"
+          className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+          checked={state.selectedBenchmarks.includes(b)}
+          onChange={() => toggleBenchmark(b)}
+        />
+        <span className="text-sm font-medium text-gray-800">{b}</span>
+        <span className="text-xs text-gray-500 ml-auto bg-gray-100 px-2 py-1 rounded-full">{type}</span>
+      </label>
+    );
+
     return (
-      <div className="space-y-6">
+      <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Scope & Benchmark Selection</h2>
-          <p className="text-sm text-gray-500">Review the extracted feature scope and select which competitors to include in the live web benchmarking matrix.</p>
+          <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <Search className="w-5 h-5 text-blue-600" /> Scope & Selected Benchmarks
+          </h2>
+          <p className="text-sm text-gray-600 mb-6">AI has generated the scope of analysis and suggested competitors based on your objectives. Select the ones you want to include in the deep analysis.</p>
         </div>
 
-        <div className="bg-blue-50/60 border border-blue-100 rounded-xl p-5 space-y-3">
-          <h3 className="text-xs font-bold text-blue-900 uppercase tracking-wider">Analysis Scope Definition</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-            <div><span className="font-bold text-gray-700">Target Feature:</span> <span className="text-gray-900">{scope.targetFeature}</span></div>
-            <div><span className="font-bold text-gray-700">Analyzed Flow:</span> <span className="text-gray-900">{scope.analyzedFlow}</span></div>
-            <div><span className="font-bold text-gray-700">Impacted User:</span> <span className="text-gray-900">{scope.impactedUser}</span></div>
-            <div><span className="font-bold text-gray-700">Usage Scenario:</span> <span className="text-gray-900">{scope.usageScenario}</span></div>
-            <div className="md:col-span-2"><span className="font-bold text-gray-700">Testing Methodology:</span> <span className="text-gray-900">{scope.testingMethod}</span></div>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+            <div className="bg-gray-50 px-6 py-3 border-b border-gray-200">
+              <h3 className="font-semibold text-gray-800 text-sm">Analysis Scope</h3>
+            </div>
+            <div className="overflow-x-auto flex-1">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dimension</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200 text-sm">
+                  <tr>
+                    <td className="px-6 py-3.5 font-medium text-gray-900 whitespace-nowrap bg-gray-50/50">Target Feature</td>
+                    <td className="px-6 py-3.5 text-gray-700">{state.scopeData.scope.targetFeature}</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-3.5 font-medium text-gray-900 whitespace-nowrap bg-gray-50/50">Analyzed Flow</td>
+                    <td className="px-6 py-3.5 text-gray-700">{state.scopeData.scope.analyzedFlow}</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-3.5 font-medium text-gray-900 whitespace-nowrap bg-gray-50/50">Impacted User</td>
+                    <td className="px-6 py-3.5 text-gray-700">{state.scopeData.scope.impactedUser}</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-3.5 font-medium text-gray-900 whitespace-nowrap bg-gray-50/50">Usage Scenario</td>
+                    <td className="px-6 py-3.5 text-gray-700">{state.scopeData.scope.usageScenario}</td>
+                  </tr>
+                  <tr>
+                    <td className="px-6 py-3.5 font-medium text-gray-900 whitespace-nowrap bg-gray-50/50">Testing Method</td>
+                    <td className="px-6 py-3.5 text-gray-700">{state.scopeData.scope.testingMethod}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col">
+            <h3 className="font-semibold text-gray-800 mb-4 border-b pb-2 text-sm">Suggested Benchmarks</h3>
+            <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2 flex-1">
+              {state.scopeData.benchmarks.direct.map(b => renderBenchmarkCheckbox(b, 'Direct'))}
+              {state.scopeData.benchmarks.market.map(b => renderBenchmarkCheckbox(b, 'Market'))}
+              {state.scopeData.benchmarks.adjacent.map(b => renderBenchmarkCheckbox(b, 'Adjacent'))}
+            </div>
+            <p className="text-xs text-gray-500 mt-4 italic">* We recommend selecting up to 4 benchmarks for optimal analysis quality.</p>
           </div>
         </div>
 
-        <div className="space-y-4">
-          <h3 className="text-sm font-semibold text-gray-900">Select Competitor Benchmarks ({state.selectedBenchmarks.length} selected)</h3>
-
-          {[
-            { label: 'Direct Competitors', list: benchmarks.direct, color: 'bg-blue-50/30 border-blue-200' },
-            { label: 'Market Reference (Best-in-Class)', list: benchmarks.market, color: 'bg-emerald-50/30 border-emerald-200' },
-            { label: 'Adjacent SaaS / B2B Solutions', list: benchmarks.adjacent, color: 'bg-purple-50/30 border-purple-200' }
-          ].map((group, idx) => (
-            <div key={idx} className={`p-4 rounded-xl border ${group.color} space-y-2`}>
-              <span className="text-xs font-bold text-gray-600 uppercase tracking-wider">{group.label}</span>
-              <div className="flex flex-wrap gap-2 pt-1">
-                {group.list.map(name => {
-                  const selected = state.selectedBenchmarks.includes(name);
-                  return (
-                    <button
-                      key={name}
-                      onClick={() => toggleBenchmark(name)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 ${
-                        selected
-                          ? 'bg-blue-600 text-white shadow-sm'
-                          : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                      }`}
-                    >
-                      <span>{selected ? '✓' : '+'}</span>
-                      <span>{name}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </div>
-
         <div className="flex justify-between items-center pt-4">
-          <button onClick={() => setState(prev => ({ ...prev, step: 1 }))} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium text-sm">
-            <ArrowLeft className="w-4 h-4" /> Back to Objective
-          </button>
-          <button
-            onClick={handleNextStep}
-            disabled={state.isLoading || state.selectedBenchmarks.length === 0}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-sm"
-          >
-            {state.isLoading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>{state.agentStatus || 'Mining Live Web Data...'}</span>
-              </>
-            ) : (
-              <>
-                <span>Next: Analysis Matrix</span>
-                <ArrowRight className="w-4 h-4" />
-              </>
+          <div className="flex items-center gap-2">
+            <button onClick={() => setState(prev => ({ ...prev, step: 1 }))} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium px-3 py-2 text-sm">
+              <ArrowLeft className="w-4 h-4" /> Back
+            </button>
+            <button onClick={handleStartNewAnalysis} className="text-gray-500 hover:text-blue-600 font-medium px-3 py-2 text-sm transition-colors flex items-center gap-1.5">
+              <RotateCcw className="w-4 h-4" /> Start New Analysis
+            </button>
+          </div>
+          <div className="flex items-center gap-3">
+            {state.isLoading && state.agentStatus && (
+              <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200 animate-pulse flex items-center gap-1.5">
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-600" />
+                {state.agentStatus}
+              </span>
             )}
-          </button>
+            <button 
+              onClick={handleNextStep}
+              disabled={state.isLoading || state.selectedBenchmarks.length === 0}
+              className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors font-medium text-sm shadow-sm"
+            >
+              {state.isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Run Multi-Agent Analysis (Web Search)'}
+              {!state.isLoading && <ArrowRight className="w-4 h-4" />}
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -533,96 +558,137 @@ export default function App() {
 
   const renderStep4 = () => {
     if (!state.synthesisData) return null;
-    const { swot, gaps, prioritization } = state.synthesisData;
-
     return (
-      <div className="space-y-6">
+      <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Strategic Synthesis & SWOT</h2>
-          <p className="text-sm text-gray-500">Synthesized competitor SWOT, identified feature gaps, and MoSCoW priorities.</p>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2 flex items-center gap-2">
+            <Lightbulb className="w-5 h-5 text-blue-600" /> Synthesis & Prioritization
+          </h2>
+          <p className="text-sm text-gray-600">Evaluating strengths, weaknesses, identifying gaps, and prioritizing features.</p>
         </div>
 
-        <div className="space-y-4">
-          <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Competitor SWOT Analysis</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {swot.map((item, i) => (
-              <div key={i} className="border border-gray-200 rounded-xl p-4 bg-white shadow-2xs space-y-2">
-                <h4 className="font-bold text-gray-900 text-sm border-b pb-1 border-gray-100">{item.competitor}</h4>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div>
-                    <span className="font-semibold text-emerald-700 block mb-1">Strengths</span>
-                    <ul className="list-disc list-inside text-gray-600 space-y-0.5">
-                      {item.strengths.map((s, idx) => <li key={idx}>{s}</li>)}
-                    </ul>
-                  </div>
-                  <div>
-                    <span className="font-semibold text-rose-700 block mb-1">Weaknesses</span>
-                    <ul className="list-disc list-inside text-gray-600 space-y-0.5">
-                      {item.weaknesses.map((w, idx) => <li key={idx}>{w}</li>)}
-                    </ul>
-                  </div>
-                </div>
+        <div className="space-y-8">
+          <section>
+            <h3 className="text-lg font-medium text-gray-800 mb-4 border-b pb-2">Identified Gaps & Strategic Opportunities</h3>
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Business Need</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Product Gap</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Strategic Opportunity</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200 text-sm">
+                  {state.synthesisData.gaps.map((gap, idx) => (
+                    <tr key={idx} className="hover:bg-gray-50/50">
+                      <td className="px-6 py-4 font-medium text-gray-900 align-top">{gap.need}</td>
+                      <td className="px-6 py-4 text-red-700 bg-red-50/40 align-top">{gap.gap}</td>
+                      <td className="px-6 py-4 text-green-800 bg-green-50/40 font-medium align-top">{gap.opportunity}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {state.synthesisData.swot && state.synthesisData.swot.length > 0 && (
+            <section>
+              <h3 className="text-lg font-medium text-gray-800 mb-4 border-b pb-2">Competitor SWOT & Takeaways</h3>
+              <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Competitor</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Strengths</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Weaknesses</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Key Takeaways</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200 text-sm">
+                    {state.synthesisData.swot.map((item, idx) => (
+                      <tr key={idx} className="hover:bg-gray-50/50">
+                        <td className="px-6 py-4 font-bold text-gray-900 align-top bg-gray-50/30">{item.competitor}</td>
+                        <td className="px-6 py-4 text-gray-700 align-top">
+                          <ul className="list-disc pl-4 space-y-1">
+                            {item.strengths.map((s, i) => <li key={i}>{s}</li>)}
+                          </ul>
+                        </td>
+                        <td className="px-6 py-4 text-gray-700 align-top">
+                          <ul className="list-disc pl-4 space-y-1">
+                            {item.weaknesses.map((w, i) => <li key={i}>{w}</li>)}
+                          </ul>
+                        </td>
+                        <td className="px-6 py-4 align-top space-y-2">
+                          {item.reuse && item.reuse.length > 0 && (
+                            <div>
+                              <span className="text-xs font-semibold text-green-800 bg-green-100 px-2 py-0.5 rounded">Reuse / Adopt:</span>
+                              <p className="text-xs text-gray-700 mt-1">{item.reuse.join(', ')}</p>
+                            </div>
+                          )}
+                          {item.avoid && item.avoid.length > 0 && (
+                            <div>
+                              <span className="text-xs font-semibold text-red-800 bg-red-100 px-2 py-0.5 rounded">Avoid:</span>
+                              <p className="text-xs text-gray-700 mt-1">{item.avoid.join(', ')}</p>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-            ))}
-          </div>
-        </div>
+            </section>
+          )}
 
-        <div className="space-y-4">
-          <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">MoSCoW Feature Prioritization</h3>
-          <div className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-2xs">
-            <table className="min-w-full divide-y divide-gray-200 text-xs text-left">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-4 py-3 font-semibold text-gray-700">Feature Module</th>
-                  <th className="px-4 py-3 font-semibold text-gray-700">Priority</th>
-                  <th className="px-4 py-3 font-semibold text-gray-700">Strategic Value</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {prioritization.map((p, idx) => {
-                  let badgeColor = 'bg-gray-100 text-gray-800';
-                  let icon = '⚪';
-                  if (/Must/i.test(p.priority)) { badgeColor = 'bg-red-100 text-red-800 font-semibold'; icon = '🔴'; }
-                  else if (/Should/i.test(p.priority)) { badgeColor = 'bg-amber-100 text-amber-800 font-semibold'; icon = '🟡'; }
-                  else if (/Could/i.test(p.priority)) { badgeColor = 'bg-blue-100 text-blue-800 font-semibold'; icon = '🔵'; }
-
-                  return (
-                    <tr key={idx} className="hover:bg-gray-50/80 transition-colors">
-                      <td className="px-4 py-3 font-medium text-gray-900">{p.item}</td>
-                      <td className="px-4 py-3">
-                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs ${badgeColor}`}>
-                          <span>{icon}</span> {p.priority}
+          <section>
+            <h3 className="text-lg font-medium text-gray-800 mb-4 border-b pb-2">Prioritization (MoSCoW)</h3>
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Item</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reason</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200 text-sm">
+                  {state.synthesisData.prioritization.map((item, idx) => (
+                    <tr key={idx} className="hover:bg-gray-50/50">
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">{item.item}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm">
+                        <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                          ${item.priority.includes('Must') ? 'bg-red-100 text-red-800' : 
+                            item.priority.includes('Should') ? 'bg-yellow-100 text-yellow-800' : 
+                            item.priority.includes('Could') ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'}`}>
+                          {item.priority}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-gray-600">{p.reason}</td>
+                      <td className="px-6 py-4 text-sm text-gray-600">{item.reason}</td>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
         </div>
 
         <div className="flex justify-between items-center pt-4">
-          <button onClick={() => setState(prev => ({ ...prev, step: 3 }))} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium text-sm">
-            <ArrowLeft className="w-4 h-4" /> Back to Matrix
-          </button>
-          <button
+          <div className="flex items-center gap-2">
+            <button onClick={() => setState(prev => ({ ...prev, step: 3 }))} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium px-3 py-2 text-sm">
+              <ArrowLeft className="w-4 h-4" /> Back
+            </button>
+            <button onClick={handleStartNewAnalysis} className="text-gray-500 hover:text-blue-600 font-medium px-3 py-2 text-sm transition-colors flex items-center gap-1.5">
+              <RotateCcw className="w-4 h-4" /> Start New Analysis
+            </button>
+          </div>
+          <button 
             onClick={handleNextStep}
             disabled={state.isLoading}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+            className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors font-medium text-sm"
           >
-            {state.isLoading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Writing Executive Report...</span>
-              </>
-            ) : (
-              <>
-                <span>Next: Executive Report</span>
-                <ArrowRight className="w-4 h-4" />
-              </>
-            )}
+            {state.isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Generate Executive Report'}
+            {!state.isLoading && <ArrowRight className="w-4 h-4" />}
           </button>
         </div>
       </div>
