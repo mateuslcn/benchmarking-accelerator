@@ -298,11 +298,14 @@ export const generateFinalReport = async (
     Generate a complete, highly structured Executive Recommendation Report and User Stories adhering MANDATORILY to the official Report System Design Specification.
 
     INPUT DATA:
-    - Context / Problem: ${inputs.businessProblem}
+    - Business Problem: ${inputs.businessProblem}
     - Current Product Context: ${inputs.currentContext}
     - Goals / Desired Outcome: ${inputs.goals}
     - Target Feature: ${scope.scope.targetFeature}
     - Strategic Synthesis (SWOT & Prioritization): ${JSON.stringify(synthesis)}
+
+    CRITICAL FEATURE RELEVANCE INSTRUCTION:
+    All content (Bottlenecks, Strategic Capabilities, Prioritized Features, Rollout Phases, and User Stories) MUST BE 100% SPECIFIC TO THE TARGET FEATURE ("${scope.scope.targetFeature}") and GOALS ("${inputs.goals}"). Do NOT invent unrelated email or notification features unless the target feature is explicitly about notifications!
 
     MANDATORY REPORT STRUCTURE & PRESENTATION SPECIFICATION:
 
@@ -311,99 +314,95 @@ export const generateFinalReport = async (
 
     ## 1. Executive Summary
 
-    > Executive Summary: Write a high-impact, single-paragraph executive summary detailing the strategic necessity of this feature, how it eliminates current operational friction, accelerates remediation, and aligns with business goals.
+    > Executive Summary: Write a high-impact, single-paragraph executive summary detailing the strategic necessity of "${scope.scope.targetFeature}", how it eliminates current operational friction, accelerates remediation/adoption, and aligns with business goals.
 
     ## 2. Key Gaps & Strategic Opportunities
 
     ### Current State Bottlenecks
-    **Bold Title Prefix:** Detailed description of current workflow friction or operational limitation.
-    **Bold Title Prefix:** Detailed description of security or patch adoption delays.
-    **Bold Title Prefix:** Detailed description of manual monitoring overhead.
+    **Bold Title Prefix:** Detailed description of current workflow friction or operational limitation related to "${scope.scope.targetFeature}".
+    **Bold Title Prefix:** Detailed description of security, usability, or adoption delays.
+    **Bold Title Prefix:** Detailed description of manual effort or user assistance overhead.
 
     ### Strategic Capabilities
-    **Bold Title Prefix:** Strategic description of the push-based event alerting mechanism.
-    **Bold Title Prefix:** Strategic description of 1-click actionability and deep-linking.
-    **Bold Title Prefix:** Strategic description of targeted routing and preference management.
+    **Bold Title Prefix:** Strategic description of the key capability for "${scope.scope.targetFeature}".
+    **Bold Title Prefix:** Strategic description of 1-click actionability, direct interface, or automation.
+    **Bold Title Prefix:** Strategic description of targeted customization, preference, or governance.
 
     ## 3. Recommendations & Phased Implementation Roadmap
 
     ### Prioritized Feature Matrix
     | Feature Module | Priority | Strategic Value |
     |---|---|---|
-    | **Name of High Priority Feature** | 🔴 Must Have | Explanation of strategic value and immediate gap resolution. |
-    | **Name of Secondary Feature** | 🔴 Must Have | Explanation of how it dramatically lowers friction-to-action. |
-    | **Name of Management Feature** | 🟡 Should Have | Explanation of how it prevents alert fatigue and ensures compliance. |
-    | **Name of Advance Planning Feature** | 🔵 Could Have | Explanation of how it enhances predictability for enterprise operations. |
+    | **[Name of High Priority Feature Module]** | 🔴 Must Have | Explanation of strategic value and immediate gap resolution. |
+    | **[Name of Core Secondary Feature Module]** | 🔴 Must Have | Explanation of how it dramatically lowers friction-to-action. |
+    | **[Name of Management/Setting Feature Module]** | 🟡 Should Have | Explanation of how it prevents friction and ensures usability. |
+    | **[Name of Advance/Predictive Feature Module]** | 🔵 Could Have | Explanation of how it enhances predictability for operations. |
 
     ### Phased Rollout Plan
-    ### Phase 1: Foundation & Core Alerting (Sprint 1–2)
-    Implement event-driven triggers on publish actions.
-    Deliver standardized, branded transactional email notifications for critical updates.
-    Embed authenticated direct deep links to the target management dashboard.
+    ### Phase 1: Foundation & Core Functionality (Sprint 1–2)
+    - Implement baseline MVP architecture and core user interaction for "${scope.scope.targetFeature}".
+    - Deliver foundational workflows and primary user interface elements.
+    - Embed authenticated core data models and essential triggers.
 
-    ### Phase 2: Targeted Routing & Preferences (Sprint 3–4)
-    Introduce admin settings for notification preferences (Immediate vs. Daily Digest).
-    Support Role-Based Access Control (RBAC) filtering and custom Recipient Groups.
-    Provide subscription management and audit logging for sent notifications.
+    ### Phase 2: Customization & Governance (Sprint 3–4)
+    - Introduce user settings, preferences, and configuration controls.
+    - Support Role-Based Access Control (RBAC), filtering, or accessibility options.
+    - Provide audit logging, analytics, and operational monitoring for the feature.
 
-    ### Phase 3: Proactive Planning & Scheduling (Sprint 5–6)
-    Build advance maintenance notification engine supporting 7-day and 14-day pre-update windows.
-    Implement automated reminder sequences before scheduled auto-deployment windows.
-    Enable preview and customization of maintenance impact notices for enterprise admins.
+    ### Phase 3: Advanced Intelligence & Automation (Sprint 5–6)
+    - Build advance warning, proactive automation, or predictive intelligence engine.
+    - Implement automated routines and proactive reminders.
+    - Enable preview and customization of advanced enterprise controls.
 
     ## 4. Actionable User Stories & Acceptance Criteria
 
-    ### User Story 1: [Feature Title]
-    **As an** [User Persona],
-    **I want to** [action/capability],
+    ### User Story 1: [Feature Module 1 Title]
+    **As an** [Target User Persona],
+    **I want to** [action/capability related to ${scope.scope.targetFeature}],
     **So that** [business benefit/outcome].
 
     **MoSCoW Priority:** 🔴 Must Have
 
     **Acceptance Criteria:**
+    - The system MUST automatically execute [primary capability] within [timeframe/trigger].
+    - The interface MUST display [key parameters/information].
+    - The platform MUST validate [data/rule] to prevent duplicate or invalid actions.
 
-    The notification service MUST automatically trigger an email within 5 minutes of a new release being published.
-    The email MUST display version number, release type, target device model(s), and brief release summary.
-    The system MUST suppress duplicate emails for the same release to the same user.
-
-    ### User Story 2: [Feature Title]
-    **As an** [User Persona],
-    **I want to** [action/capability],
+    ### User Story 2: [Feature Module 2 Title]
+    **As an** [Target User Persona],
+    **I want to** [action/capability related to ${scope.scope.targetFeature}],
     **So that** [business benefit/outcome].
 
     **MoSCoW Priority:** 🔴 Must Have
 
     **Acceptance Criteria:**
+    - The system MUST provide [UI element/CTA] for [action].
+    - Clicking/triggering the action MUST direct the user to [target state/dashboard].
+    - If unauthenticated, the system MUST redirect to login and return to target state upon authentication.
 
-    The notification email MUST include a prominent Call-to-Action (CTA) button ("Review & Deploy Update").
-    Clicking the CTA MUST direct the user to the specific target deployment dashboard.
-    If the user is unauthenticated, the link MUST redirect to the login page and securely forward to the target deployment page upon authentication.
-
-    ### User Story 3: [Feature Title]
-    **As an** [User Persona],
-    **I want to** [action/capability],
+    ### User Story 3: [Feature Module 3 Title]
+    **As an** [Target User Persona],
+    **I want to** [action/capability related to ${scope.scope.targetFeature}],
     **So that** [business benefit/outcome].
 
     **MoSCoW Priority:** 🟡 Should Have
 
     **Acceptance Criteria:**
+    - The platform MUST provide a configuration/preferences page for [Feature].
+    - Admins MUST be able to customize [settings/roles/filters].
+    - Users MUST be able to toggle preference settings between options.
 
-    The platform MUST provide a Notification Preferences settings page.
-    Admins MUST be able to map notification triggers to built-in roles or custom recipient lists.
-    Users MUST be able to toggle preference between "Immediate Email" and "Mute Notifications".
-
-    ### User Story 4: [Feature Title]
-    **As an** [User Persona],
-    **I want to** [action/capability],
+    ### User Story 4: [Feature Module 4 Title]
+    **As an** [Target User Persona],
+    **I want to** [action/capability related to ${scope.scope.targetFeature}],
     **So that** [business benefit/outcome].
 
     **MoSCoW Priority:** 🔵 Could Have
 
     **Acceptance Criteria:**
-
-    System Admins MUST be able to configure advance warning thresholds (7 days, 14 days, or custom).
-    The system MUST send scheduled reminder emails containing planned maintenance date and list of affected devices.
-    The email MUST include an option for Admins to reschedule or pause the automatic maintenance window.
+    - System Admins MUST be able to configure advance thresholds or automated schedules.
+    - The system MUST send/trigger automated routines containing planned updates.
+    - The system MUST provide an option to pause or reschedule automated actions.
 
     CRITICAL RULES:
     1. Do NOT alter these section titles or H1/H2/H3 headings.
