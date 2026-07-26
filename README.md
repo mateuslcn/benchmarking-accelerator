@@ -1,9 +1,9 @@
-# Benchmarking Accelerator
+# Cloud Services AI Suite
 
-> **AI-Powered Multi-Agent Competitive Analysis & Feature Specification Engine**  
-> *Transform business objectives into live web-grounded benchmark matrices, strategic SWOT syntheses, and executive recommendation reports with actionable user stories.*
+> **Enterprise Intelligence Portal & Multi-Agent Acceleration Suite**  
+> *Transform strategic engineering pillars into actionable frameworks, live web-grounded competitive benchmark matrices, strategic SWOT syntheses, and executive recommendation reports.*
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-2563EB?style=for-the-badge&logo=github)](https://mateuslcn.github.io/benchmarking-accelerator/)
+[![Live Portal](https://img.shields.io/badge/Suite-Cloud%20Services%20AI-2563EB?style=for-the-badge&logo=google)](https://github.com/mateuslcn/cloud-services-ai-suite)
 [![Architecture](https://img.shields.io/badge/Architecture-Multi--Agent%20System-0F172A?style=for-the-badge)](./Benchmarking_Accelerator_Documentation.docx)
 [![License](https://img.shields.io/badge/License-MIT-green.style=for-the-badge)](#license)
 
@@ -11,18 +11,47 @@
 
 ## Executive Summary
 
-The **Benchmarking Accelerator** is an enterprise-grade web application designed to eliminate manual competitive research overhead. Driven by an orchestrated **Multi-Agent System (MAS)** equipped with **Live Google Search Grounding** and an automated **1-Pass Quality Critic Review Loop**, the platform turns high-level product goals into fully validated feature comparison matrices and formal Product Owner specifications.
+The **Cloud Services AI Suite** is an enterprise-grade performance portal designed for modern engineering organizations. It unifies 5 core strategic pillars into a cohesive operational intelligence platform:
+
+1. **Quality**: Shifting Left to Target Zero Escaped Defects.
+2. **Productivity**: Scaling Output with AI-Assisted Engineering.
+3. **Cycle Time**: Driving Delivery Velocity and Agility.
+4. **Innovation**: Fostering Engineering-Led Feature Ideation.
+5. **Competitiveness**: Outpacing the Market (*Powered by the **Benchmarking Acceleration Engine***).
+
+Driven by an orchestrated **Multi-Agent System (MAS)** equipped with **Live Google Search Grounding** and an automated **1-Pass Quality Critic Review Loop**, the platform turns high-level product objectives into fully validated feature comparison matrices, SWOT syntheses, MoSCoW feature prioritizations, and formal Product Owner specifications with exportable `.docx` reports.
+
+---
+
+## 5 Strategic Pillars
+
+```
++---------------------------------------------------------------------------------------------------+
+|                                      CLOUD SERVICES AI SUITE                                      |
++------------------+-------------------+--------------------+------------------+--------------------+
+| 🛡️ Quality       | 📈 Productivity   | ⏱️ Cycle Time      | 💡 Innovation    | ⚡ Competitiveness |
+| Target Zero      | AI-Assisted       | Delivery Velocity  | Engineering-Led  | Outpacing Market   |
+| Escaped Defects  | Engineering       | & Agility          | Ideation         | Benchmarking Engine|
++------------------+-------------------+--------------------+------------------+--------------------+
+```
+
+* **Quality**: Focuses on auditing defects across component and platform tests to eliminate customer-found escaped defects using AI-driven automated testing.
+* **Productivity**: Integrates AI tools into daily coding, debugging, testing, and documentation to scale feature velocity.
+* **Cycle Time**: Drastically reduces time-to-market across feature delivery, platform upgrades, and test execution.
+* **Innovation**: Empowers engineering-led ideation to prototype and inject monetizable features directly into product roadmaps.
+* **Competitiveness (Active Engine)**: Executes live web-grounded multi-agent benchmarking against industry leaders.
 
 ---
 
 ## Key Capabilities & Features
 
-* **5-Step Streamlined Workflow**: Guides users seamlessly from Objective Definition to Scope Selection, Evidence-Grounded Matrix Analysis, Strategic Synthesis, and Executive Report Generation.
+* **Off-Canvas Navigation Panel**: Clean, drawer-based navigation panel (`☰`) that opens seamlessly over the enterprise portal.
+* **5-Step Benchmarking Workflow**: Guides product managers through Objective Definition, Scope & Target Selection, Evidence-Grounded Matrix Analysis, Strategic Synthesis, and Executive Report Generation.
 * **Orchestrated 5-Agent Architecture**: Five specialized AI agents collaborate across prompt schemas, live web grounding, quality audits, and technical document writing.
 * **Live Web Evidence Mining**: Real-time Google Search integration fetches official competitor documentation, feature releases, and live web evidence.
-* **1-Pass Critic & Decision Loop (2nd Search Refinement)**: Agent 3 audits Agent 2's initial matrix draft. If any unverified cell or competitor gap is detected, Agent 3 executes a 2nd targeted Google Search to refine capabilities before finalizing the matrix.
-* **Client-Side Direct Execution & Privacy-First**: Operates using the user's browser-entered Google AI Studio API key stored exclusively in local `localStorage`. Zero account data or telemetry stored on external servers.
-* **Report System Design Specification**: Exports executive reports with A4 PDF export (20mm margins), Hero summary cards, MoSCoW color icons (🔴 🟡 🔵 ⚪), vertical rollout plans, and bolded **Acceptance Criteria**.
+* **1-Pass Critic & Decision Loop**: Agent 3 audits Agent 2's initial matrix draft. If any unverified cell or competitor gap is detected, Agent 3 executes a 2nd targeted Google Search to refine capabilities before finalizing the matrix.
+* **Full Report & DOCX Export**: Generates client-side Word `.docx` documents containing complete Analysis Matrices, SWOT syntheses, rollout roadmaps, and user stories.
+* **Expanded Gemini Model Dropdown**: Full support for Google AI Studio models including `gemini-3.6-flash`, `gemini-3.5-pro`, `gemini-2.5-flash`, `gemini-2.0-flash`, and `gemini-1.5-pro`.
 
 ---
 
@@ -54,36 +83,21 @@ The **Benchmarking Accelerator** is an enterprise-grade web application designed
 
 ---
 
-## Report System Design Specification
-
-Reports generated by **Agent 5** adhere strictly to the formal **Report System Specification**:
-
-1. **Executive Summary Hero Card**: Single blockquote container (`> Executive Summary: ...`) with `#F8FAFC` background and `#0F172A` left border.
-2. **Key Gaps & Strategic Opportunities**: Subsection items formatted with **Bold Title Prefixes** (`**Title Prefix:** Description`).
-3. **Prioritized Feature Matrix**: Markdown table with `#0F172A` dark navy header, white bold text, and direct color icons:
-   * 🔴 **Must Have**
-   * 🟡 **Should Have**
-   * 🔵 **Could Have**
-   * ⚪ **Won't Have**
-4. **Phased Rollout Plan**: Strictly vertical sequential list by Phase and Sprint.
-5. **Actionable User Stories**: Structured with **As an**, **I want to**, **So that**, **MoSCoW Priority:**, and bolded **Acceptance Criteria:**.
-
----
-
 ## Tech Stack & Structure
 
 * **Frontend**: React 18, TypeScript, Tailwind CSS, Lucide React Icons, React Markdown (Remark GFM).
-* **AI & Grounding Engine**: `@google/genai` (Gemini 2.5 Flash / Gemini Pro) with Google Search Tool Grounding.
-* **Export Engine**: `html2pdf.js` (A4 format with 20mm margins).
-* **Single-File Bundler**: `vite-plugin-singlefile` (compiles entire app into a self-contained `index.html`).
+* **AI & Grounding Engine**: `@google/genai` (Gemini 3.6 / 3.5 / 2.5 / 2.0) with Google Search Tool Grounding.
+* **Document Exporter**: `docx` package for client-side Word document creation.
+* **Single-File Bundler**: `vite-plugin-singlefile` (compiles entire app into a self-contained `index.html` / `Index.html`).
 
 ```
-benchmarking-accelerator/
+cloud-services-ai-suite/
 ├── index.html                                 # Compiled Single-File Production Bundle
+├── Index.html                                 # Single-File Production Entry
 ├── README.md                                  # Project Documentation
-├── 1_System_Architecture_Overview.png          # High-Res Architecture Diagram (White Background)
-├── 2_Multi_Agent_Sequence_Workflow.png        # High-Res Sequence Diagram (White Background)
-├── 3_One_Pass_Review_Loop_Sequence.png        # High-Res Critic Review Diagram (White Background)
+├── 1_System_Architecture_Overview.png          # High-Res Architecture Diagram
+├── 2_Multi_Agent_Sequence_Workflow.png        # High-Res Sequence Diagram
+├── 3_One_Pass_Review_Loop_Sequence.png        # High-Res Critic Review Diagram
 ├── Benchmarking_Accelerator_Documentation.docx# Full System Documentation (Word)
 ├── Benchmarking_Accelerator_User_Manual.docx  # User Operations Manual (Word)
 ├── skills/                                    # Individual Agent Skill Markdown Specifications
@@ -93,15 +107,14 @@ benchmarking-accelerator/
 │   ├── agent_4_product_strategy_analyst.md    # Agent 4 Skill Specification
 │   └── agent_5_executive_tech_writer.md       # Agent 5 Skill Specification
 └── frontend/
-    ├── App.tsx                                # Main React State Machine & UI
+    ├── App.tsx                                # Main Portal & Benchmarking UI
     ├── components/
     │   └── StepIndicator.tsx                  # 5-Step Navigation Header
     ├── services/
     │   └── geminiService.ts                   # 5 Agent Skills & Google Search API Calls
     ├── utils/
-    │   └── docxExporter.ts                    # DOCX Exporter Utility
-    ├── types.ts                               # App State & Schema Interfaces
-    └── index.html                             # Report Design System CSS Variables
+    │   └── docxExporter.ts                    # Word .docx Exporter Utility
+    └── types.ts                               # App State & Schema Interfaces
 ```
 
 ---
@@ -116,8 +129,8 @@ benchmarking-accelerator/
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/mateuslcn/benchmarking-accelerator.git
-   cd benchmarking-accelerator
+   git clone https://github.com/mateuslcn/cloud-services-ai-suite.git
+   cd cloud-services-ai-suite
    ```
 
 2. **Install Dependencies**:
@@ -140,13 +153,12 @@ benchmarking-accelerator/
 
 ## Deployment Guide
 
-### GitHub Pages (Recommended)
+### Vercel (Recommended)
 
-1. Navigate to **[Repository Settings -> Pages](https://github.com/mateuslcn/benchmarking-accelerator/settings/pages)**.
-2. Under **Build and deployment -> Source**, select **`Deploy from a branch`**.
-3. Set **Branch**: `main` and **Folder**: `/ (root)`.
-4. Click **Save**. The live app will be published at:  
-   👉 **`https://mateuslcn.github.io/benchmarking-accelerator/`**
+1. Connect your GitHub account to **[Vercel](https://vercel.com/)**.
+2. Select **`mateuslcn/cloud-services-ai-suite`**.
+3. Set **Framework Preset**: `Vite` (or `Other` with root directory `./`).
+4. Click **Deploy**.
 
 ---
 
