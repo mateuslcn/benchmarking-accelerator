@@ -7,7 +7,7 @@ import {
   Loader2, ArrowRight, ArrowLeft, Search, FileText, Target, Lightbulb, 
   AlertCircle, Printer, Key, RotateCcw, Download, ExternalLink, Star,
   Home, ShieldCheck, TrendingUp, Clock, Sparkles, ChevronDown, ChevronRight,
-  Menu, X, Layers, Zap, CheckCircle2
+  Menu, X, Layers, Zap
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -37,7 +37,7 @@ export default function App() {
   const [maxStepReached, setMaxStepReached] = useState(1);
   const [apiKey, setApiKey] = useState('');
   const [isApiKeyInvalid, setIsApiKeyInvalid] = useState(false);
-  const [modelName, setModelName] = useState(() => (typeof window !== 'undefined' ? localStorage.getItem('GEMINI_MODEL_NAME') || 'gemini-2.5-flash' : 'gemini-2.5-flash'));
+  const [modelName, setModelName] = useState(() => (typeof window !== 'undefined' ? localStorage.getItem('GEMINI_MODEL_NAME') || 'gemini-3.6-flash' : 'gemini-3.6-flash'));
 
   // Automatically scroll to the top of the page whenever step or activeView changes
   useEffect(() => {
@@ -205,57 +205,70 @@ export default function App() {
   };
 
   const renderStep1 = () => (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-2 flex items-center gap-2">
-          <Target className="w-5 h-5 text-blue-600" /> Define the Objective
-        </h2>
-        <p className="text-sm text-gray-600 mb-4">Before analyzing competitors, let's establish what we are trying to achieve.</p>
+        <h2 className="text-xl font-semibold text-gray-900 mb-2">Define Objective & Context</h2>
+        <p className="text-sm text-gray-500">Provide details about the business problem and product goals to guide the analysis.</p>
       </div>
-      
+
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">What business problem are we trying to solve?</label>
-          <textarea 
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            What business problem are we trying to solve?
+          </label>
+          <textarea
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm transition-all"
             rows={3}
-            placeholder="Currently Users are not proactively informed when new firmware updates become available for their managed devices, which can delay update adoption, increase security and compliance risks, and require manual monitoring of the web platform."
+            placeholder="Elderly users often struggle with the complexity of Smart TV interfaces and settings, reducing their independence and requiring frequent assistance from family members or caregivers for everyday tasks."
             value={state.inputs.businessProblem}
             onChange={(e) => updateInputs('businessProblem', e.target.value)}
           />
         </div>
+
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Current Product Context</label>
-          <textarea 
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Current Product Context
+          </label>
+          <textarea
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm transition-all"
             rows={3}
-            placeholder="B2B web platform for firmware control and software customization, enabling organizations to manage firmware updates and software configurations across their enterprise device fleet."
+            placeholder="Our Current Smart TV interfaces and configuration workflows can be difficult for elderly users to navigate, making simple actions such as changing channels, adjusting settings, or opening applications unnecessarily challenging when they are home alone."
             value={state.inputs.currentContext}
             onChange={(e) => updateInputs('currentContext', e.target.value)}
           />
         </div>
+
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">What are we looking for?</label>
-          <textarea 
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            What are we looking for?
+          </label>
+          <textarea
+            className="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm transition-all"
             rows={3}
-            placeholder="Create an email notification feature that automatically informs users when a firmware update becomes available for their registered devices, allowing them to take timely action without continuously monitoring the web platform."
+            placeholder="Develop an AI-powered virtual assistant that enables elderly users to control and interact with their Smart TV using simple voice commands, making common tasks more intuitive while increasing their autonomy and reducing the need for external assistance."
             value={state.inputs.goals}
             onChange={(e) => updateInputs('goals', e.target.value)}
           />
         </div>
       </div>
-      <div className="flex justify-between items-center pt-4">
-        <button onClick={handleStartNewAnalysis} className="text-gray-500 hover:text-blue-600 font-medium px-2 py-1 text-sm transition-colors flex items-center gap-1.5">
-          <RotateCcw className="w-4 h-4" /> Start New Analysis
-        </button>
-        <button 
+
+      <div className="flex justify-end pt-4">
+        <button
           onClick={handleNextStep}
-          disabled={!state.inputs.businessProblem || !state.inputs.currentContext || !state.inputs.goals || state.isLoading}
-          className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium text-sm"
+          disabled={state.isLoading || !state.inputs.businessProblem.trim() || !state.inputs.currentContext.trim() || !state.inputs.goals.trim()}
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-sm"
         >
-          {state.isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Generate Scope & Benchmarks'}
-          {!state.isLoading && <ArrowRight className="w-4 h-4" />}
+          {state.isLoading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>Analyzing Objective...</span>
+            </>
+          ) : (
+            <>
+              <span>Next: Scope & Benchmarks</span>
+              <ArrowRight className="w-4 h-4" />
+            </>
+          )}
         </button>
       </div>
     </div>
@@ -277,48 +290,48 @@ export default function App() {
     };
 
     return (
-      <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="space-y-6">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-2 flex items-center gap-2">
-            <Search className="w-5 h-5 text-blue-600" /> Scope & Benchmark Selection
-          </h2>
-          <p className="text-sm text-gray-600 mb-4">Agent 1 has analyzed your objective and defined the feature scope and target competitors.</p>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Scope & Benchmark Selection</h2>
+          <p className="text-sm text-gray-500">Review the extracted feature scope and select which competitors to include in the live web benchmarking matrix.</p>
         </div>
 
-        <div className="bg-blue-50/50 border border-blue-100 rounded-xl p-5 space-y-3">
-          <h3 className="text-sm font-semibold text-blue-900 uppercase tracking-wider">Analysis Scope</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div><span className="font-semibold text-gray-700">Target Feature:</span> <span className="text-gray-900">{scope.targetFeature}</span></div>
-            <div><span className="font-semibold text-gray-700">Analyzed Flow:</span> <span className="text-gray-900">{scope.analyzedFlow}</span></div>
-            <div><span className="font-semibold text-gray-700">Impacted User:</span> <span className="text-gray-900">{scope.impactedUser}</span></div>
-            <div><span className="font-semibold text-gray-700">Usage Scenario:</span> <span className="text-gray-900">{scope.usageScenario}</span></div>
+        <div className="bg-blue-50/60 border border-blue-100 rounded-xl p-5 space-y-3">
+          <h3 className="text-xs font-bold text-blue-900 uppercase tracking-wider">Analysis Scope Definition</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            <div><span className="font-bold text-gray-700">Target Feature:</span> <span className="text-gray-900">{scope.targetFeature}</span></div>
+            <div><span className="font-bold text-gray-700">Analyzed Flow:</span> <span className="text-gray-900">{scope.analyzedFlow}</span></div>
+            <div><span className="font-bold text-gray-700">Impacted User:</span> <span className="text-gray-900">{scope.impactedUser}</span></div>
+            <div><span className="font-bold text-gray-700">Usage Scenario:</span> <span className="text-gray-900">{scope.usageScenario}</span></div>
+            <div className="md:col-span-2"><span className="font-bold text-gray-700">Testing Methodology:</span> <span className="text-gray-900">{scope.testingMethod}</span></div>
           </div>
         </div>
 
         <div className="space-y-4">
-          <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Select Competitors to Analyze</h3>
-          
+          <h3 className="text-sm font-semibold text-gray-900">Select Competitor Benchmarks ({state.selectedBenchmarks.length} selected)</h3>
+
           {[
-            { label: 'Direct Competitors', list: benchmarks.direct, color: 'border-blue-200 bg-blue-50/30' },
-            { label: 'Market Reference (Best-in-Class)', list: benchmarks.market, color: 'border-emerald-200 bg-emerald-50/30' },
-            { label: 'Adjacent SaaS / B2B Products', list: benchmarks.adjacent, color: 'border-purple-200 bg-purple-50/30' }
-          ].map((cat, i) => (
-            <div key={i} className={`border rounded-xl p-4 ${cat.color}`}>
-              <h4 className="text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2.5">{cat.label}</h4>
-              <div className="flex flex-wrap gap-2">
-                {cat.list.map((name) => {
-                  const isSelected = state.selectedBenchmarks.includes(name);
+            { label: 'Direct Competitors', list: benchmarks.direct, color: 'bg-blue-50/30 border-blue-200' },
+            { label: 'Market Reference (Best-in-Class)', list: benchmarks.market, color: 'bg-emerald-50/30 border-emerald-200' },
+            { label: 'Adjacent SaaS / B2B Solutions', list: benchmarks.adjacent, color: 'bg-purple-50/30 border-purple-200' }
+          ].map((group, idx) => (
+            <div key={idx} className={`p-4 rounded-xl border ${group.color} space-y-2`}>
+              <span className="text-xs font-bold text-gray-600 uppercase tracking-wider">{group.label}</span>
+              <div className="flex flex-wrap gap-2 pt-1">
+                {group.list.map(name => {
+                  const selected = state.selectedBenchmarks.includes(name);
                   return (
                     <button
                       key={name}
                       onClick={() => toggleBenchmark(name)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
-                        isSelected 
-                          ? 'bg-blue-600 text-white border-blue-600 shadow-xs' 
-                          : 'bg-white text-gray-700 border-gray-300 hover:border-gray-400'
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 ${
+                        selected
+                          ? 'bg-blue-600 text-white shadow-sm'
+                          : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
                       }`}
                     >
-                      {isSelected ? '✓ ' : '+ '} {name}
+                      <span>{selected ? '✓' : '+'}</span>
+                      <span>{name}</span>
                     </button>
                   );
                 })}
@@ -328,19 +341,25 @@ export default function App() {
         </div>
 
         <div className="flex justify-between items-center pt-4">
-          <button 
-            onClick={() => setState(prev => ({ ...prev, step: 1 }))}
-            className="flex items-center gap-1.5 text-gray-600 hover:text-gray-900 text-sm font-medium"
-          >
+          <button onClick={() => setState(prev => ({ ...prev, step: 1 }))} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium text-sm">
             <ArrowLeft className="w-4 h-4" /> Back to Objective
           </button>
-          <button 
+          <button
             onClick={handleNextStep}
-            disabled={state.selectedBenchmarks.length === 0 || state.isLoading}
-            className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium text-sm"
+            disabled={state.isLoading || state.selectedBenchmarks.length === 0}
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-sm"
           >
-            {state.isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Generate Analysis Matrix'}
-            {!state.isLoading && <ArrowRight className="w-4 h-4" />}
+            {state.isLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>{state.agentStatus || 'Mining Live Web Data...'}</span>
+              </>
+            ) : (
+              <>
+                <span>Next: Analysis Matrix</span>
+                <ArrowRight className="w-4 h-4" />
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -351,12 +370,10 @@ export default function App() {
     if (!state.matrixData) return null;
 
     return (
-      <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="space-y-6">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-2 flex items-center gap-2">
-            <FileText className="w-5 h-5 text-blue-600" /> Competitor Benchmark Matrix
-          </h2>
-          <p className="text-sm text-gray-600 mb-4">Agent 2 mined live web documentation, and Agent 3 executed an automated 1-pass quality audit with 2nd targeted search refinement.</p>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Competitor Analysis Matrix</h2>
+          <p className="text-sm text-gray-500">Live web data evaluated across competitor criteria with 1-pass critic auditing.</p>
         </div>
 
         <div className="overflow-x-auto border border-gray-200 rounded-xl shadow-xs bg-white">
@@ -489,19 +506,25 @@ export default function App() {
         )}
 
         <div className="flex justify-between items-center pt-4">
-          <button 
-            onClick={() => setState(prev => ({ ...prev, step: 2 }))}
-            className="flex items-center gap-1.5 text-gray-600 hover:text-gray-900 text-sm font-medium"
-          >
+          <button onClick={() => setState(prev => ({ ...prev, step: 2 }))} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium text-sm">
             <ArrowLeft className="w-4 h-4" /> Back to Benchmarks
           </button>
-          <button 
+          <button
             onClick={handleNextStep}
             disabled={state.isLoading}
-            className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium text-sm"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-sm"
           >
-            {state.isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Generate Synthesis'}
-            {!state.isLoading && <ArrowRight className="w-4 h-4" />}
+            {state.isLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>Generating Strategic Synthesis...</span>
+              </>
+            ) : (
+              <>
+                <span>Next: Synthesis & SWOT</span>
+                <ArrowRight className="w-4 h-4" />
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -513,16 +536,14 @@ export default function App() {
     const { swot, gaps, prioritization } = state.synthesisData;
 
     return (
-      <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="space-y-6">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-2 flex items-center gap-2">
-            <Lightbulb className="w-5 h-5 text-blue-600" /> Strategic Synthesis & SWOT
-          </h2>
-          <p className="text-sm text-gray-600 mb-4">Agent 4 synthesized matrix findings into competitor SWOT, gaps, and MoSCoW priorities.</p>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Strategic Synthesis & SWOT</h2>
+          <p className="text-sm text-gray-500">Synthesized competitor SWOT, identified feature gaps, and MoSCoW priorities.</p>
         </div>
 
         <div className="space-y-4">
-          <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Competitor SWOT</h3>
+          <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Competitor SWOT Analysis</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {swot.map((item, i) => (
               <div key={i} className="border border-gray-200 rounded-xl p-4 bg-white shadow-2xs space-y-2">
@@ -583,19 +604,25 @@ export default function App() {
         </div>
 
         <div className="flex justify-between items-center pt-4">
-          <button 
-            onClick={() => setState(prev => ({ ...prev, step: 3 }))}
-            className="flex items-center gap-1.5 text-gray-600 hover:text-gray-900 text-sm font-medium"
-          >
+          <button onClick={() => setState(prev => ({ ...prev, step: 3 }))} className="flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium text-sm">
             <ArrowLeft className="w-4 h-4" /> Back to Matrix
           </button>
-          <button 
+          <button
             onClick={handleNextStep}
             disabled={state.isLoading}
-            className="flex items-center gap-2 bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium text-sm"
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-xl transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-sm"
           >
-            {state.isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Generate Executive Report'}
-            {!state.isLoading && <ArrowRight className="w-4 h-4" />}
+            {state.isLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>Writing Executive Report...</span>
+              </>
+            ) : (
+              <>
+                <span>Next: Executive Report</span>
+                <ArrowRight className="w-4 h-4" />
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -606,11 +633,11 @@ export default function App() {
     if (!state.reportData) return null;
 
     return (
-      <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <div className="space-y-6">
         <div className="flex justify-between items-center mb-6 print:hidden">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-              <FileText className="w-6 h-6 text-blue-600" /> Executive Recommendations
+              <FileText className="w-6 h-6 text-blue-600" /> Executive Recommendations & User Stories
             </h2>
             <p className="text-sm text-gray-600 mt-1">Final report and actionable user stories.</p>
           </div>
@@ -682,13 +709,13 @@ export default function App() {
         <div className="flex justify-between items-center pt-4 print:hidden">
           <button 
             onClick={() => setState(prev => ({ ...prev, step: 4 }))}
-            className="flex items-center gap-1.5 text-gray-600 hover:text-gray-900 text-sm font-medium"
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 font-medium text-sm"
           >
             <ArrowLeft className="w-4 h-4" /> Back to Synthesis
           </button>
           <button 
             onClick={handleStartNewAnalysis}
-            className="flex items-center gap-2 bg-gray-900 text-white px-6 py-2.5 rounded-lg hover:bg-gray-800 transition-colors font-medium text-sm"
+            className="flex items-center gap-1.5 text-blue-600 hover:text-blue-800 font-medium px-4 py-2 text-sm transition-colors"
           >
             <RotateCcw className="w-4 h-4" /> Start New Analysis
           </button>
@@ -891,67 +918,23 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            {/* Model Selector */}
-            <div className="hidden sm:flex items-center gap-1.5 bg-gray-100 px-2.5 py-1 rounded-lg border border-gray-200">
-              <span className="text-2xs text-gray-500 font-medium uppercase">Model:</span>
-              <select
-                value={modelName}
-                onChange={(e) => handleModelChange(e.target.value)}
-                className="bg-transparent text-xs font-semibold text-gray-800 outline-none cursor-pointer"
-              >
-                <optgroup label="Gemini 3.x Series">
-                  <option value="gemini-3.6-flash">Gemini 3.6 Flash (Latest Fast & Intelligent)</option>
-                  <option value="gemini-3.5-pro">Gemini 3.5 Pro (State-of-the-Art)</option>
-                  <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
-                  <option value="gemini-3-pro">Gemini 3 Pro (Advanced Reasoning)</option>
-                  <option value="gemini-3-flash">Gemini 3 Flash</option>
-                </optgroup>
-                <optgroup label="Gemini 2.x Series">
-                  <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
-                  <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
-                  <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
-                  <option value="gemini-2.0-pro-exp-02-05">Gemini 2.0 Pro (Experimental)</option>
-                </optgroup>
-                <optgroup label="Gemini 1.5 Series & Aliases">
-                  <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
-                  <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-                  <option value="gemini-flash-latest">Gemini Flash (Latest Alias)</option>
-                </optgroup>
-              </select>
+          {activeView === 'home' && (
+            <div className="text-xs text-gray-500 font-medium hidden sm:block">
+              Select a pillar below or open the menu ☰ to launch tools
             </div>
+          )}
 
-            {/* API Key Input Field */}
-            <div className="flex items-center gap-2">
-              <div className={`relative flex items-center rounded-lg border transition-all ${
-                isApiKeyInvalid 
-                  ? 'border-red-500 ring-2 ring-red-500/20 bg-red-50/50' 
-                  : 'border-gray-300 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 bg-white'
-              }`}>
-                <Key className={`w-4 h-4 ml-2.5 flex-shrink-0 ${isApiKeyInvalid ? 'text-red-500' : 'text-gray-400'}`} />
-                <input
-                  type="password"
-                  placeholder="Google AI Studio API Key..."
-                  value={apiKey}
-                  onChange={(e) => handleApiKeyChange(e.target.value)}
-                  className="w-40 sm:w-56 px-2.5 py-1.5 text-xs bg-transparent outline-none text-gray-900 placeholder:text-gray-400 font-mono"
-                />
-                {apiKey && (
-                  <button
-                    onClick={handleClearKey}
-                    className="p-1 text-gray-400 hover:text-gray-600 mr-1 text-2xs"
-                    title="Clear API Key"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
+          {activeView === 'benchmarking' && (
+            <button
+              onClick={navigateToHome}
+              className="text-xs font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 flex items-center gap-1.5 transition-colors"
+            >
+              <Home className="w-3.5 h-3.5" /> Back to Suite Home
+            </button>
+          )}
         </div>
       </header>
 
-      <div className="flex-1 flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6">
       {/* Conventional Off-Canvas Overlay Drawer */}
       {isSidebarOpen && (
         <div className="fixed inset-0 z-50 flex">
@@ -1071,64 +1054,145 @@ export default function App() {
         </div>
       )}
 
-        {/* Main Content Area */}
-        <main className="flex-1 min-w-0">
-          {/* API Key Missing Alert Toast Banner */}
-          {state.error && (
-            <div className="mb-6 bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3 text-red-800 text-xs shadow-xs animate-in fade-in duration-300">
-              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-              <div className="flex-1 font-medium">{state.error}</div>
-              <button 
-                onClick={() => setState(prev => ({ ...prev, error: null }))}
-                className="text-red-500 hover:text-red-700 text-xs font-bold"
-              >
-                Dismiss
-              </button>
-            </div>
-          )}
+      {/* Main Content Area */}
+      <div className="flex-1">
+        {activeView === 'home' ? (
+          <main className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {renderHomePage()}
+          </main>
+        ) : (
+          /* Exact 100% Original Benchmarking Accelerator Layout from main branch */
+          <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 print:bg-white print:py-0">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-12 print:mb-6">
+                <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl mb-2">
+                  Benchmarking Accelerator
+                </h1>
+                <p className="text-lg text-gray-500 max-w-2xl mx-auto print:hidden">
+                  Streamline your product analysis workflow from objective definition to actionable user stories, and generate an executive report on feature value.
+                </p>
+              </div>
 
-          {activeView === 'home' ? (
-            renderHomePage()
-          ) : (
-            <div className="space-y-6">
-              {/* Breadcrumb Header */}
-              <div className="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-5 py-3 shadow-2xs">
-                <div className="flex items-center gap-2 text-xs text-gray-500">
-                  <button onClick={navigateToHome} className="hover:text-blue-600 font-medium flex items-center gap-1">
-                    <Home className="w-3.5 h-3.5" /> Home
-                  </button>
-                  <ChevronRight className="w-3 h-3 text-gray-400" />
-                  <span>Competitiveness</span>
-                  <ChevronRight className="w-3 h-3 text-gray-400" />
-                  <span className="font-semibold text-blue-600">Benchmarking Acceleration</span>
+              {/* API Key Configuration Bar (Exact original design) */}
+              <div className={`mb-6 p-4 rounded-xl border transition-all flex flex-col gap-3 print:hidden ${
+                isApiKeyInvalid || (state.error && !apiKey.trim())
+                  ? 'bg-red-50/80 border-red-300 shadow-md ring-2 ring-red-400'
+                  : 'bg-white border-gray-200 shadow-sm'
+              }`}>
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg ${
+                      isApiKeyInvalid || !apiKey.trim() 
+                        ? 'bg-red-100 text-red-700' 
+                        : 'bg-green-100 text-green-700'
+                    }`}>
+                      <Key className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-sm font-semibold text-gray-800">Gemini API Key</h3>
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                          apiKey.trim() && !isApiKeyInvalid 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-red-100 text-red-800 font-bold'
+                        }`}>
+                          {apiKey.trim() && !isApiKeyInvalid ? 'Direct Mode (Ready)' : 'API Key Required'}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        {apiKey.trim() 
+                          ? 'Direct client-side execution via Google AI Studio API.' 
+                          : 'Enter your Google AI Studio API key to run without a local backend server.'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="w-full sm:w-auto flex items-center gap-2 flex-wrap sm:flex-nowrap">
+                    <select
+                      value={modelName}
+                      onChange={(e) => handleModelChange(e.target.value)}
+                      className="p-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                      title="Gemini Model"
+                    >
+                      <optgroup label="Gemini 3.x Series">
+                        <option value="gemini-3.6-flash">gemini-3.6-flash (Latest)</option>
+                        <option value="gemini-3.5-pro">gemini-3.5-pro (SOTA)</option>
+                        <option value="gemini-3.5-flash">gemini-3.5-flash</option>
+                        <option value="gemini-3-pro">gemini-3-pro</option>
+                        <option value="gemini-3-flash">gemini-3-flash</option>
+                      </optgroup>
+                      <optgroup label="Gemini 2.x Series">
+                        <option value="gemini-2.5-flash">gemini-2.5-flash</option>
+                        <option value="gemini-2.5-pro">gemini-2.5-pro</option>
+                        <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+                        <option value="gemini-2.0-pro-exp-02-05">gemini-2.0-pro-exp-02-05</option>
+                      </optgroup>
+                      <optgroup label="Gemini 1.5 Series & Aliases">
+                        <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+                        <option value="gemini-1.5-pro">gemini-1.5-pro</option>
+                        <option value="gemini-flash-latest">gemini-flash-latest</option>
+                      </optgroup>
+                    </select>
+                    <input
+                      type="password"
+                      placeholder="Enter API Key..."
+                      className={`w-full sm:w-64 p-2 border rounded-lg text-sm outline-none transition-all ${
+                        isApiKeyInvalid || (state.error && !apiKey.trim())
+                          ? 'border-red-500 ring-2 ring-red-400 bg-red-100/50 text-red-900 font-semibold placeholder-red-400'
+                          : 'border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
+                      }`}
+                      value={apiKey}
+                      onChange={(e) => handleApiKeyChange(e.target.value)}
+                    />
+                    {apiKey.trim() && (
+                      <button
+                        onClick={handleClearKey}
+                        className="text-xs text-red-600 hover:text-red-800 hover:bg-red-50 border border-red-200 rounded-lg px-3 py-2 font-medium transition-colors"
+                        title="Remove saved API key"
+                      >
+                        Clear
+                      </button>
+                    )}
+                  </div>
                 </div>
-
-                <button
-                  onClick={navigateToHome}
-                  className="text-xs font-medium text-gray-500 hover:text-blue-600 flex items-center gap-1"
-                >
-                  <ArrowLeft className="w-3.5 h-3.5" /> Back to Dashboard
-                </button>
+                {(isApiKeyInvalid || (state.error && !apiKey.trim())) && (
+                  <div className="w-full bg-red-100/90 border border-red-300 text-red-800 text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center gap-2 animate-in fade-in duration-300">
+                    <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0" />
+                    <span>
+                      {isApiKeyInvalid 
+                        ? 'Invalid or Rejected API Key. Please enter a valid Google AI Studio API Key in the highlighted field above.' 
+                        : 'API Key Field is Empty. You must enter a valid Google AI Studio API Key before generating an analysis.'}
+                    </span>
+                  </div>
+                )}
               </div>
 
-              {/* Step Navigation Indicator Bar */}
-              <StepIndicator 
-                currentStep={state.step} 
-                maxStepReached={maxStepReached}
-                onStepClick={handleStepClick}
-              />
+              {/* Exact Original Outer Container from main branch */}
+              <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 sm:p-10 min-h-[600px] print:shadow-none print:border-none print:p-0">
+                <div className="print:hidden">
+                  <StepIndicator currentStep={state.step} maxStepReached={maxStepReached} onStepClick={handleStepClick} />
+                </div>
+                
+                {state.error && (
+                  <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-md flex items-start gap-3 print:hidden">
+                    <AlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h3 className="text-sm font-medium text-red-800">Error</h3>
+                      <p className="text-sm text-red-700 mt-1">{state.error}</p>
+                    </div>
+                  </div>
+                )}
 
-              {/* Step Content */}
-              <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 shadow-xs min-h-[500px]">
-                {state.step === 1 && renderStep1()}
-                {state.step === 2 && renderStep2()}
-                {state.step === 3 && renderStep3()}
-                {state.step === 4 && renderStep4()}
-                {state.step === 5 && renderStep5()}
+                <div className="mt-8 print:mt-0">
+                  {state.step === 1 && renderStep1()}
+                  {state.step === 2 && renderStep2()}
+                  {state.step === 3 && renderStep3()}
+                  {state.step === 4 && renderStep4()}
+                  {state.step === 5 && renderStep5()}
+                </div>
               </div>
             </div>
-          )}
-        </main>
+          </div>
+        )}
       </div>
 
       <footer className="bg-white border-t border-gray-200 py-4 mt-auto text-xs text-gray-500 text-center">
