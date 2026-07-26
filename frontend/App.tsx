@@ -30,7 +30,7 @@ const INITIAL_STATE: AppState = {
 
 export default function App() {
   const [activeView, setActiveView] = useState<'home' | 'benchmarking'>('home');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isCompetitivenessExpanded, setIsCompetitivenessExpanded] = useState(true);
 
   const [state, setState] = useState<AppState>(INITIAL_STATE);
@@ -952,17 +952,49 @@ export default function App() {
       </header>
 
       <div className="flex-1 flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6">
-        {/* Left Sidebar Menu */}
-        {isSidebarOpen && (
-          <aside className="w-64 flex-shrink-0 space-y-6 animate-in slide-in-from-left-4 duration-300">
-            <div className="bg-slate-900 text-white rounded-2xl p-4 shadow-md space-y-4">
-              <div className="px-2 pt-1 pb-2 border-b border-slate-800">
-                <span className="text-2xs font-bold text-slate-400 uppercase tracking-wider block mb-2">Navigation Menu</span>
+      {/* Conventional Off-Canvas Overlay Drawer */}
+      {isSidebarOpen && (
+        <div className="fixed inset-0 z-50 flex">
+          {/* Backdrop Blur Overlay */}
+          <div 
+            className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs animate-in fade-in duration-300"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+
+          {/* Conventional Slide-over Sidebar Container */}
+          <aside className="relative z-50 w-72 bg-slate-900 text-white min-h-screen shadow-2xl flex flex-col p-5 animate-in slide-in-from-left duration-300 border-r border-slate-800">
+            {/* Drawer Header */}
+            <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white shadow-xs">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <div>
+                  <h2 className="font-bold text-white text-sm leading-tight">Cloud Services AI</h2>
+                  <p className="text-3xs text-slate-400">Navigation Drawer</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsSidebarOpen(false)}
+                className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+                title="Close Navigation"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Menu Items */}
+            <div className="flex-1 space-y-5 overflow-y-auto pr-1">
+              <div>
+                <span className="text-3xs font-bold text-slate-400 uppercase tracking-wider block px-2 mb-2">Main View</span>
                 <button
-                  onClick={navigateToHome}
-                  className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
+                  onClick={() => {
+                    navigateToHome();
+                    setIsSidebarOpen(false);
+                  }}
+                  className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                     activeView === 'home'
-                      ? 'bg-blue-600 text-white shadow-xs'
+                      ? 'bg-blue-600 text-white shadow-sm'
                       : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                   }`}
                 >
@@ -972,7 +1004,7 @@ export default function App() {
               </div>
 
               <div>
-                <span className="text-2xs font-bold text-slate-400 uppercase tracking-wider block px-2 mb-2">Strategic Pillars</span>
+                <span className="text-3xs font-bold text-slate-400 uppercase tracking-wider block px-2 mb-2">Strategic Pillars</span>
                 <nav className="space-y-1">
                   {[
                     { title: 'Quality', icon: ShieldCheck },
@@ -990,7 +1022,7 @@ export default function App() {
                           <IconComp className="w-4 h-4 text-slate-500" />
                           <span>{p.title}</span>
                         </div>
-                        <span className="text-3xs px-1.5 py-0.5 rounded bg-slate-800 text-slate-500">Soon</span>
+                        <span className="text-3xs px-1.5 py-0.5 rounded bg-slate-800 text-slate-500 font-semibold">Soon</span>
                       </div>
                     );
                   })}
@@ -999,7 +1031,7 @@ export default function App() {
                   <div className="space-y-1 pt-1">
                     <button
                       onClick={() => setIsCompetitivenessExpanded(!isCompetitivenessExpanded)}
-                      className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-200 hover:bg-slate-800 transition-colors"
+                      className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-slate-200 hover:bg-slate-800 transition-colors"
                     >
                       <div className="flex items-center gap-2.5">
                         <Target className="w-4 h-4 text-blue-400" />
@@ -1011,7 +1043,10 @@ export default function App() {
                     {isCompetitivenessExpanded && (
                       <div className="pl-4 space-y-1 animate-in fade-in duration-200">
                         <button
-                          onClick={navigateToBenchmarking}
+                          onClick={() => {
+                            navigateToBenchmarking();
+                            setIsSidebarOpen(false);
+                          }}
                           className={`w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
                             activeView === 'benchmarking'
                               ? 'bg-blue-600/30 text-blue-300 border border-blue-500/40 font-semibold'
@@ -1027,8 +1062,14 @@ export default function App() {
                 </nav>
               </div>
             </div>
+
+            {/* Footer */}
+            <div className="pt-4 border-t border-slate-800 text-3xs text-slate-500">
+              <p>Cloud Services AI Suite v1.0</p>
+            </div>
           </aside>
-        )}
+        </div>
+      )}
 
         {/* Main Content Area */}
         <main className="flex-1 min-w-0">
