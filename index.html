@@ -213,8 +213,8 @@ Error generating stack: `+e.message+`
     
     Provide the output strictly adhering to the requested JSON schema.
   `,r=await t.models.generateContent({model:Gm(),contents:n,config:{responseMimeType:`application/json`,responseSchema:{type:P.OBJECT,properties:{scope:{type:P.OBJECT,properties:{targetFeature:{type:P.STRING,description:`The specific feature to analyze`},analyzedFlow:{type:P.STRING,description:`The user flow being analyzed`},impactedUser:{type:P.STRING,description:`The type of user impacted`},usageScenario:{type:P.STRING,description:`The scenario in which it is used`},testingMethod:{type:P.STRING,description:`How to test competitors (e.g., Sites, docs)`}},required:[`targetFeature`,`analyzedFlow`,`impactedUser`,`usageScenario`,`testingMethod`]},benchmarks:{type:P.OBJECT,properties:{direct:{type:P.ARRAY,items:{type:P.STRING},description:`Direct competitors (up to 3)`},market:{type:P.ARRAY,items:{type:P.STRING},description:`Market references (best in class)`},adjacent:{type:P.ARRAY,items:{type:P.STRING},description:`Adjacent products (SAAS, B2B, etc.)`}},required:[`direct`,`market`,`adjacent`]}},required:[`scope`,`benchmarks`]}}});return JSON.parse(r.text)},Jm=async(e,t,n,r)=>{let i=Km(),a=r.join(`, `),o=`
-    You are Agent 2: Matrix Critic & Executive Decision Agent.
-    Your job is to audit, perform targeted live web searches for any missing competitor evidence, and refine the comparison matrix produced by Agent 1 (Web Researcher).
+    You are Agent 3: Matrix Critic & Executive Decision Agent.
+    Your job is to audit, perform targeted live web searches for any missing competitor evidence, and refine the comparison matrix produced by Agent 2 (Web Researcher).
 
     Target Feature: "${n.scope.targetFeature}"
     Business Problem: "${t.businessProblem}"
@@ -253,7 +253,7 @@ Error generating stack: `+e.message+`
        - [NONE] for missing/unsupported feature
        Followed by a single concise bullet (MAX 20 words per cell). Be direct, factual, and scannable.
     5. CRITICAL: Do NOT use markdown formatting (like **bold**, *italics*) or HTML tags inside table cells. Plain text with the status tag prefix only.
-  `,s=await i.models.generateContent({model:Gm(),contents:o,config:{tools:[{googleSearch:{}}],temperature:.2}}),c=s.candidates?.[0]?.groundingMetadata,l=(c?.groundingChunks||[]).map(e=>e.web).filter(e=>e!==void 0&&!!e.uri);if(l.length===0){let e=c?.webSearchQueries||[];l=e.length>0?e.map(e=>({uri:`https://www.google.com/search?q=${encodeURIComponent(e)}`,title:`Google Search: ${e}`})):n.map(e=>({uri:`https://www.google.com/search?q=${encodeURIComponent(e+` `+t.scope.targetFeature)}`,title:`${e} - ${t.scope.targetFeature}`}))}let u=s.text||``;r&&r(`Agent 2 (Matrix Critic): Auditing precision & executing targeted searches...`);let{refinedMatrix:d,criticSources:f}=await Jm(u,e,t,n),p=[...l,...f];return{markdownTable:d,sources:Array.from(new Map(p.map(e=>[e.uri,e])).values())}},Xm=async(e,t)=>{let n=Km(),r=`
+  `,s=await i.models.generateContent({model:Gm(),contents:o,config:{tools:[{googleSearch:{}}],temperature:.2}}),c=s.candidates?.[0]?.groundingMetadata,l=(c?.groundingChunks||[]).map(e=>e.web).filter(e=>e!==void 0&&!!e.uri);if(l.length===0){let e=c?.webSearchQueries||[];l=e.length>0?e.map(e=>({uri:`https://www.google.com/search?q=${encodeURIComponent(e)}`,title:`Google Search: ${e}`})):n.map(e=>({uri:`https://www.google.com/search?q=${encodeURIComponent(e+` `+t.scope.targetFeature)}`,title:`${e} - ${t.scope.targetFeature}`}))}let u=s.text||``;r&&r(`Agent 3 (Matrix Critic): Auditing precision & executing targeted searches...`);let{refinedMatrix:d,criticSources:f}=await Jm(u,e,t,n),p=[...l,...f];return{markdownTable:d,sources:Array.from(new Map(p.map(e=>[e.uri,e])).values())}},Xm=async(e,t)=>{let n=Km(),r=`
     Based on the following comparison matrix and our original goals, perform a synthesis.
     
     Goals: ${t.goals}
