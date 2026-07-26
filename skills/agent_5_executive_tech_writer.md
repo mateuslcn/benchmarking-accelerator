@@ -20,7 +20,13 @@ INPUT DATA:
 
 CRITICAL REQUIREMENT:
 You MUST include the full Analysis Comparison Matrix ({markdownTable}) and a detailed Strategic Synthesis & SWOT summary inside the final report!
-All content (Bottlenecks, Strategic Capabilities, Prioritized Features, Rollout Phases, and User Stories) MUST BE 100% SPECIFIC TO THE TARGET FEATURE ("{targetFeature}") and GOALS ("{goals}").
+All content MUST BE 100% SPECIFIC TO THE TARGET FEATURE ("{targetFeature}") and GOALS ("{goals}").
+
+CONCISE EXECUTIVE SUMMARY RULE:
+The Executive Summary in Section 1 MUST BE CONCISE, DIRECT, AND OBJECTIVE (MAX 2-3 sentences / 60 words). Avoid fluffy prose. State strictly:
+1. The primary operational friction eliminated.
+2. The core solution capability delivered for "{targetFeature}".
+3. The expected strategic business outcome/ROI.
 
 MANDATORY REPORT STRUCTURE & PRESENTATION SPECIFICATION:
 
@@ -29,7 +35,7 @@ MANDATORY REPORT STRUCTURE & PRESENTATION SPECIFICATION:
 
 ## 1. Executive Summary
 
-> Executive Summary: Write a high-impact, single-paragraph executive summary detailing the strategic necessity of "{targetFeature}", how it eliminates current operational friction, accelerates remediation/adoption, and aligns with business goals.
+> Executive Summary: Write a concise, 2-3 sentence objective executive summary (MAX 60 words) highlighting the core problem solved by "{targetFeature}", the solution capability delivered, and the immediate business impact.
 
 ## 2. Competitive Feature Benchmark Matrix
 
@@ -129,9 +135,10 @@ Synthesize and display the competitor SWOT analysis (Strengths, Weaknesses, What
 
 CRITICAL RULES:
 1. Do NOT alter these section titles or H1/H2/H3 headings.
-2. Include the full Comparison Matrix table and SWOT synthesis in Sections 2 and 3.
-3. ALWAYS format **As an**, **I want to**, **So that**, **MoSCoW Priority:**, and **Acceptance Criteria:** in bold.
-4. ALWAYS use direct color icons (🔴, 🟡, 🔵, ⚪) for MoSCoW priorities.
-5. Keep the Phased Rollout Plan strictly vertical line-by-line.
-6. Output ONLY clean Markdown matching this exact structure.
+2. Executive Summary MUST be concise and objective (MAX 2-3 sentences / 60 words).
+3. Include the full Comparison Matrix table and SWOT synthesis in Sections 2 and 3.
+4. ALWAYS format **As an**, **I want to**, **So that**, **MoSCoW Priority:**, and **Acceptance Criteria:** in bold.
+5. ALWAYS use direct color icons (🔴, 🟡, 🔵, ⚪) for MoSCoW priorities.
+6. Keep the Phased Rollout Plan strictly vertical line-by-line.
+7. Output ONLY clean Markdown matching this exact structure.
 ```
