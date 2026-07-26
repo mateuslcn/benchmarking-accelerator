@@ -890,50 +890,41 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans text-gray-900">
-      {/* Top Configuration Header Bar */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-30 shadow-2xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-              title="Toggle Sidebar Menu"
-            >
-              {isSidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+      {/* Top Configuration Header Bar - Rendered ONLY on Home Page */}
+      {activeView === 'home' && (
+        <header className="bg-white border-b border-gray-200 sticky top-0 z-30 shadow-2xs">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                title="Toggle Sidebar Menu"
+              >
+                {isSidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
 
-            <div 
-              onClick={navigateToHome}
-              className="flex items-center gap-2.5 cursor-pointer group"
-            >
-              <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-xs group-hover:bg-blue-700 transition-colors">
-                <Zap className="w-5 h-5" />
-              </div>
-              <div>
-                <h1 className="font-bold text-gray-900 text-base leading-tight group-hover:text-blue-600 transition-colors">
-                  Cloud Services AI Suite
-                </h1>
-                <p className="text-2xs text-gray-500 leading-none">Enterprise Intelligence Portal</p>
+              <div 
+                onClick={navigateToHome}
+                className="flex items-center gap-2.5 cursor-pointer group"
+              >
+                <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-xs group-hover:bg-blue-700 transition-colors">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <div>
+                  <h1 className="font-bold text-gray-900 text-base leading-tight group-hover:text-blue-600 transition-colors">
+                    Cloud Services AI Suite
+                  </h1>
+                  <p className="text-2xs text-gray-500 leading-none">Enterprise Intelligence Portal</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          {activeView === 'home' && (
             <div className="text-xs text-gray-500 font-medium hidden sm:block">
               Select a pillar below or open the menu ☰ to launch tools
             </div>
-          )}
-
-          {activeView === 'benchmarking' && (
-            <button
-              onClick={navigateToHome}
-              className="text-xs font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-200 flex items-center gap-1.5 transition-colors"
-            >
-              <Home className="w-3.5 h-3.5" /> Back to Suite Home
-            </button>
-          )}
-        </div>
-      </header>
+          </div>
+        </header>
+      )}
 
       {/* Conventional Off-Canvas Overlay Drawer */}
       {isSidebarOpen && (
@@ -1064,6 +1055,22 @@ export default function App() {
           /* Exact 100% Original Benchmarking Accelerator Layout from main branch */
           <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 print:bg-white print:py-0">
             <div className="max-w-5xl mx-auto">
+              <div className="mb-6 print:hidden flex justify-between items-center">
+                <button
+                  onClick={navigateToHome}
+                  className="text-xs font-semibold text-gray-600 hover:text-blue-600 flex items-center gap-1.5 transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4" /> Back to Home Dashboard
+                </button>
+                <button
+                  onClick={() => setIsSidebarOpen(true)}
+                  className="p-1.5 text-gray-600 hover:text-gray-900 hover:bg-gray-200/60 rounded-lg transition-colors flex items-center gap-1.5 text-xs font-medium"
+                  title="Open Navigation Menu"
+                >
+                  <Menu className="w-4 h-4" /> Menu
+                </button>
+              </div>
+
               <div className="text-center mb-12 print:mb-6">
                 <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl mb-2">
                   Benchmarking Accelerator
