@@ -892,13 +892,25 @@ export default function App() {
                 onChange={(e) => handleModelChange(e.target.value)}
                 className="bg-transparent text-xs font-semibold text-gray-800 outline-none cursor-pointer"
               >
-                <option value="gemini-2.5-flash">Gemini 2.5 Flash (Recommended)</option>
-                <option value="gemini-2.5-pro">Gemini 2.5 Pro (Deep Reasoning)</option>
-                <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
-                <option value="gemini-2.0-pro-exp-02-05">Gemini 2.0 Pro (Experimental)</option>
-                <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
-                <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-                <option value="gemini-flash-latest">Gemini Flash (Latest Alias)</option>
+                <optgroup label="Gemini 3.x Series">
+                  <option value="gemini-3.5-pro">Gemini 3.5 Pro (State-of-the-Art)</option>
+                  <option value="gemini-3.5-flash">Gemini 3.5 Flash (Ultra Fast)</option>
+                  <option value="gemini-3-pro">Gemini 3 Pro (Advanced Reasoning)</option>
+                  <option value="gemini-3-flash">Gemini 3 Flash</option>
+                  <option value="gemini-3-ultra">Gemini 3 Ultra</option>
+                  <option value="gemini-3-preview">Gemini 3 Preview</option>
+                </optgroup>
+                <optgroup label="Gemini 2.x Series">
+                  <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                  <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+                  <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+                  <option value="gemini-2.0-pro-exp-02-05">Gemini 2.0 Pro (Experimental)</option>
+                </optgroup>
+                <optgroup label="Gemini 1.5 Series & Aliases">
+                  <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+                  <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+                  <option value="gemini-flash-latest">Gemini Flash (Latest Alias)</option>
+                </optgroup>
               </select>
             </div>
 
