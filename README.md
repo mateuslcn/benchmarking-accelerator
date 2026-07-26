@@ -85,6 +85,13 @@ benchmarking-accelerator/
 ├── 2_Multi_Agent_Sequence_Workflow.png        # High-Res Sequence Diagram (White Background)
 ├── 3_One_Pass_Review_Loop_Sequence.png        # High-Res Critic Review Diagram (White Background)
 ├── Benchmarking_Accelerator_Documentation.docx# Full System Documentation (Word)
+├── Benchmarking_Accelerator_User_Manual.docx  # User Operations Manual (Word)
+├── skills/                                    # Individual Agent Skill Markdown Specifications
+│   ├── agent_1_scope_analyst.md               # Agent 1 Skill Specification
+│   ├── agent_2_live_web_researcher.md         # Agent 2 Skill Specification
+│   ├── agent_3_matrix_critic.md               # Agent 3 Skill Specification
+│   ├── agent_4_product_strategy_analyst.md    # Agent 4 Skill Specification
+│   └── agent_5_executive_tech_writer.md       # Agent 5 Skill Specification
 └── frontend/
     ├── App.tsx                                # Main React State Machine & UI
     ├── components/
