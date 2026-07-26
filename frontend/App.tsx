@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StepIndicator } from './components/StepIndicator';
 import { AppState, BenchmarkInputs } from './types';
 import { generateScopeAndBenchmarks, generateMatrixWithSearch, generateSynthesis, generateFinalReport } from './services/geminiService';
@@ -29,6 +29,11 @@ export default function App() {
   const [apiKey, setApiKey] = useState('');
   const [isApiKeyInvalid, setIsApiKeyInvalid] = useState(false);
   const [modelName, setModelName] = useState(() => (typeof window !== 'undefined' ? localStorage.getItem('GEMINI_MODEL_NAME') || 'gemini-flash-latest' : 'gemini-flash-latest'));
+
+  // Automatically scroll to the top of the page whenever a new step is loaded
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [state.step]);
 
   const handleApiKeyChange = (val: string) => {
     setApiKey(val);
