@@ -373,6 +373,9 @@ The Executive Summary in Section 1 MUST BE CONCISE, DIRECT, AND OBJECTIVE (MAX 2
 2. The core solution capability delivered for "{targetFeature}".
 3. The expected strategic business outcome/ROI.
 
+TABLE FORMATTING REQUIREMENT FOR SECTION 3:
+In Section 3 ("3. Strategic Synthesis & Competitor Analysis"), BOTH "Competitor SWOT Analysis" and "Key Gaps & Strategic Opportunities" MUST BE PRESENTED MANDATORILY AS MARKDOWN TABLES.
+
 MANDATORY REPORT STRUCTURE & PRESENTATION SPECIFICATION:
 
 # Executive Benchmarking & Recommendation Report
@@ -389,18 +392,30 @@ MANDATORY REPORT STRUCTURE & PRESENTATION SPECIFICATION:
 ## 3. Strategic Synthesis & Competitor Analysis
 
 ### Competitor SWOT Analysis
-Synthesize and display the competitor SWOT analysis (Strengths, Weaknesses, What to Reuse, What to Avoid) for each benchmarked competitor based on {synthesisJSON}.
+Format the competitor SWOT synthesis strictly as a Markdown table based on {synthesisJSON}:
+
+| Competitor | Strengths | Weaknesses | What to Reuse / Learn | What to Avoid |
+|---|---|---|---|---|
+| **[Competitor Name A]** | Key strengths identified | Key weaknesses identified | Best practice to adopt | Flaw or antipattern to avoid |
+| **[Competitor Name B]** | Key strengths identified | Key weaknesses identified | Best practice to adopt | Flaw or antipattern to avoid |
 
 ### Key Gaps & Strategic Opportunities
+
 #### Current State Bottlenecks
-**Bold Title Prefix:** Detailed description of current workflow friction or operational limitation related to "{targetFeature}".
-**Bold Title Prefix:** Detailed description of security, usability, or adoption delays.
-**Bold Title Prefix:** Detailed description of manual effort or user assistance overhead.
+Format Current State Bottlenecks strictly as a Markdown table:
+
+| Bottleneck Category | Current Workflow Friction & Limitation | Operational Impact |
+|---|---|---|
+| **[Workflow Friction Category]** | Detailed description of current workflow friction or operational limitation related to "{targetFeature}". | Adoption delays, high error rate, or user frustration. |
+| **[Manual Effort Overhead]** | Detailed description of manual effort or assistance overhead. | High operational cost and team effort. |
 
 #### Strategic Capabilities
-**Bold Title Prefix:** Strategic description of the key capability for "{targetFeature}".
-**Bold Title Prefix:** Strategic description of 1-click actionability, direct interface, or automation.
-**Bold Title Prefix:** Strategic description of targeted customization, preference, or governance.
+Format Strategic Capabilities strictly as a Markdown table:
+
+| Strategic Capability Module | Delivered Feature Solution | Business & User Value |
+|---|---|---|
+| **[Core Capability Name]** | Strategic description of the key capability for "{targetFeature}". | Eliminates friction and enables 1-click actionability. |
+| **[Governance & Control]** | Strategic description of targeted customization, preference, or RBAC governance. | Ensures compliance, scalability, and admin control. |
 
 ## 4. Recommendations & Phased Implementation Roadmap
 
@@ -481,7 +496,7 @@ Synthesize and display the competitor SWOT analysis (Strengths, Weaknesses, What
 CRITICAL RULES:
 1. Do NOT alter these section titles or H1/H2/H3 headings.
 2. Executive Summary MUST be concise and objective (MAX 2-3 sentences / 60 words).
-3. Include the full Comparison Matrix table and SWOT synthesis in Sections 2 and 3.
+3. Section 3 items ("Competitor SWOT Analysis", "Current State Bottlenecks", and "Strategic Capabilities") MUST BE PRESENTED AS MARKDOWN TABLES.
 4. ALWAYS format **As an**, **I want to**, **So that**, **MoSCoW Priority:**, and **Acceptance Criteria:** in bold.
 5. ALWAYS use direct color icons (🔴, 🟡, 🔵, ⚪) for MoSCoW priorities.
 6. Keep the Phased Rollout Plan strictly vertical line-by-line.
