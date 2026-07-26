@@ -864,10 +864,10 @@ export default function App() {
               <Zap className="w-3.5 h-3.5 text-blue-400" /> Enterprise Performance Portal
             </span>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              Accelerate Strategic Excellence
+              Cloud Services AI Suite
             </h1>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Select a strategic pillar below to access specialized AI-driven benchmark tools, performance frameworks, and operational acceleration suites.
+              Select a strategic pillar below to access specialized AI-driven performance frameworks and operational acceleration suites.
             </p>
           </div>
           <div className="absolute right-0 bottom-0 top-0 w-1/3 bg-gradient-to-l from-blue-600/10 to-transparent pointer-events-none" />
@@ -1269,7 +1269,7 @@ export default function App() {
       </div>
 
       <footer className="bg-white border-t border-gray-200 py-4 mt-auto text-xs text-gray-500 text-center">
-        <p>Benchmarking Accelerator Engine • Multi-Agent System Architecture</p>
+        <p>Multi-Agent System Architecture</p>
       </footer>
     </div>
   );
