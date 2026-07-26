@@ -702,55 +702,60 @@ export default function App() {
       {
         id: 'quality',
         title: 'Quality',
+        subtitle: 'Shifting Left to Target Zero Escaped Defects',
         icon: ShieldCheck,
         color: 'text-blue-600',
         bg: 'bg-blue-50',
         borderColor: 'border-gray-200',
-        description: 'Audit software standards, defect rates, test coverage, and automated QA benchmarks.',
+        description: 'Achieve zero customer-found escaped defects by shifting left, auditing defects across component and platform tests, and leveraging AI-driven automated testing early.',
         status: 'Planned',
         isActive: false
       },
       {
         id: 'productivity',
         title: 'Productivity',
+        subtitle: 'Scaling Output with AI-Assisted Engineering',
         icon: TrendingUp,
         color: 'text-emerald-600',
         bg: 'bg-emerald-50',
         borderColor: 'border-gray-200',
-        description: 'Track developer velocity, engineering throughput, resource allocation, and team output.',
+        description: 'Accelerate feature velocity by integrating AI tools into daily coding, debugging, testing, and documentation workflows while tracking quantifiable efficiency gains.',
         status: 'Planned',
         isActive: false
       },
       {
         id: 'cycle-time',
         title: 'Cycle Time',
+        subtitle: 'Driving Delivery Velocity and Agility',
         icon: Clock,
         color: 'text-amber-600',
         bg: 'bg-amber-50',
         borderColor: 'border-gray-200',
-        description: 'Monitor lead time to market, PR review speeds, deployment frequency, and delivery friction.',
+        description: 'Drastically reduce time-to-market by streamlining end-to-end workflows across feature delivery, platform upgrades, and test execution.',
         status: 'Planned',
         isActive: false
       },
       {
         id: 'innovation',
         title: 'Innovation',
+        subtitle: 'Fostering Engineering-Led Feature Ideation',
         icon: Sparkles,
         color: 'text-purple-600',
         bg: 'bg-purple-50',
         borderColor: 'border-gray-200',
-        description: 'Evaluate R&D velocity, emerging technology adoption, patents, and novelty benchmarks.',
+        description: 'Shift to active innovators by using AI to brainstorm, prototype, and inject customer-centric, monetizable engineering features directly into product roadmaps.',
         status: 'Planned',
         isActive: false
       },
       {
         id: 'competitiveness',
         title: 'Competitiveness',
+        subtitle: 'Outpacing the Market & Industry Leaders',
         icon: Target,
         color: 'text-blue-600',
         bg: 'bg-blue-50',
         borderColor: 'border-blue-500 ring-2 ring-blue-500/20',
-        description: 'Automated 5-agent market analysis, web-grounded competitor feature matrices, and PO specification generator.',
+        description: 'Conduct rigorous competitive analysis against market leaders to build market-differentiating features that actively outpace competition.',
         status: 'Active Tool',
         isActive: true,
         toolName: 'Benchmarking Acceleration'
@@ -819,6 +824,9 @@ export default function App() {
                       <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                         {p.title}
                       </h3>
+                      <p className="text-xs font-semibold text-blue-600 mt-0.5">
+                        {p.subtitle}
+                      </p>
                       <p className="text-xs text-gray-600 mt-2 leading-relaxed">
                         {p.description}
                       </p>
