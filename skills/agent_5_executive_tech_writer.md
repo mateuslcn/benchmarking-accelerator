@@ -83,20 +83,24 @@ Format Strategic Capabilities strictly as a Markdown table:
 | **[Name of Advance/Predictive Feature Module]** | 🔵 Could Have | Explanation of how it enhances predictability for operations. |
 
 ### Phased Rollout Plan
-### Phase 1: Foundation & Core Functionality (Sprint 1–2)
-- Implement baseline MVP architecture and core user interaction for "{targetFeature}".
-- Deliver foundational workflows and primary user interface elements.
-- Embed authenticated core data models and essential triggers.
 
-### Phase 2: Customization & Governance (Sprint 3–4)
-- Introduce user settings, preferences, and configuration controls.
-- Support Role-Based Access Control (RBAC), filtering, or accessibility options.
-- Provide audit logging, analytics, and operational monitoring for the feature.
+DYNAMIC ROLLOUT PLAN RULE:
+Adapt the deliverables in Phase 1, Phase 2, and Phase 3 strictly to the domain and technical realities of "{targetFeature}" and "{goals}". Do not use generic boilerplate text. Tailor the architecture, triggers, governance, and advanced extensions specifically to the target capability. Keep the presentation strictly vertical line-by-line.
 
-### Phase 3: Advanced Intelligence & Automation (Sprint 5–6)
-- Build advance warning, proactive automation, or predictive intelligence engine.
-- Implement automated routines and proactive reminders.
-- Enable preview and customization of advanced enterprise controls.
+### Phase 1: Core Foundation & MVP Capabilities (Sprint 1–2)
+- [Specific core architectural setup, protocol integration, or base data models required for "{targetFeature}"]
+- [Primary user interface, interaction flow, or immediate visual/hardware feedback mechanism]
+- [Essential baseline triggers, real-time sync, or critical functional validation for "{targetFeature}"]
+
+### Phase 2: Configuration, Security & Operational Control (Sprint 3–4)
+- [Feature-specific settings, parameter customization, or user preferences for "{targetFeature}"]
+- [Targeted access governance, security constraints, device/system permissions, or operational telemetry]
+- [Error handling, edge-case mitigation, and performance monitoring tailored to "{targetFeature}"]
+
+### Phase 3: Advanced Optimization & Smart Automation (Sprint 5–6)
+- [Proactive intelligence, contextual automation, or predictive enhancements for "{targetFeature}"]
+- [Advanced cross-platform triggers, batch routines, or deep system integration]
+- [Enterprise customization, automated fallback mechanisms, or high-value feature enhancements]
 
 ## 5. Actionable User Stories & Acceptance Criteria
 
@@ -152,8 +156,9 @@ CRITICAL RULES:
 1. Do NOT alter these section titles or H1/H2/H3 headings.
 2. Executive Summary MUST be concise and objective (MAX 2-3 sentences / 60 words).
 3. Section 3 items ("Competitor SWOT Analysis", "Current State Bottlenecks", and "Strategic Capabilities") MUST BE PRESENTED AS MARKDOWN TABLES.
-4. ALWAYS format **As an**, **I want to**, **So that**, **MoSCoW Priority:**, and **Acceptance Criteria:** in bold.
-5. ALWAYS use direct color icons (🔴, 🟡, 🔵, ⚪) for MoSCoW priorities.
-6. Keep the Phased Rollout Plan strictly vertical line-by-line.
-7. Output ONLY clean Markdown matching this exact structure.
+4. Adapt Phased Rollout Plan deliverables strictly to domain and technical realities of "{targetFeature}" and "{goals}".
+5. ALWAYS format **As an**, **I want to**, **So that**, **MoSCoW Priority:**, and **Acceptance Criteria:** in bold.
+6. ALWAYS use direct color icons (🔴, 🟡, 🔵, ⚪) for MoSCoW priorities.
+7. Keep the Phased Rollout Plan strictly vertical line-by-line.
+8. Output ONLY clean Markdown matching this exact structure.
 ```
