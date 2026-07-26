@@ -37,7 +37,7 @@ export default function App() {
   const [maxStepReached, setMaxStepReached] = useState(1);
   const [apiKey, setApiKey] = useState('');
   const [isApiKeyInvalid, setIsApiKeyInvalid] = useState(false);
-  const [modelName, setModelName] = useState(() => (typeof window !== 'undefined' ? localStorage.getItem('GEMINI_MODEL_NAME') || 'gemini-flash-latest' : 'gemini-flash-latest'));
+  const [modelName, setModelName] = useState(() => (typeof window !== 'undefined' ? localStorage.getItem('GEMINI_MODEL_NAME') || 'gemini-2.5-flash' : 'gemini-2.5-flash'));
 
   // Automatically scroll to the top of the page whenever step or activeView changes
   useEffect(() => {
@@ -892,8 +892,13 @@ export default function App() {
                 onChange={(e) => handleModelChange(e.target.value)}
                 className="bg-transparent text-xs font-semibold text-gray-800 outline-none cursor-pointer"
               >
-                <option value="gemini-flash-latest">Gemini Flash (Fast)</option>
-                <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                <option value="gemini-2.5-flash">Gemini 2.5 Flash (Recommended)</option>
+                <option value="gemini-2.5-pro">Gemini 2.5 Pro (Deep Reasoning)</option>
+                <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+                <option value="gemini-2.0-pro-exp-02-05">Gemini 2.0 Pro (Experimental)</option>
+                <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+                <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+                <option value="gemini-flash-latest">Gemini Flash (Latest Alias)</option>
               </select>
             </div>
 

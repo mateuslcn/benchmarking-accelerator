@@ -30,7 +30,7 @@ const getModelName = (): string => {
       return savedModel.trim();
     }
   }
-  return 'gemini-flash-latest';
+  return 'gemini-2.5-flash';
 };
 
 const getAIClient = (): GoogleGenAI => {
