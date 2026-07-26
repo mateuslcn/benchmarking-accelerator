@@ -893,12 +893,11 @@ export default function App() {
                 className="bg-transparent text-xs font-semibold text-gray-800 outline-none cursor-pointer"
               >
                 <optgroup label="Gemini 3.x Series">
+                  <option value="gemini-3.6-flash">Gemini 3.6 Flash (Latest Fast & Intelligent)</option>
                   <option value="gemini-3.5-pro">Gemini 3.5 Pro (State-of-the-Art)</option>
-                  <option value="gemini-3.5-flash">Gemini 3.5 Flash (Ultra Fast)</option>
+                  <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
                   <option value="gemini-3-pro">Gemini 3 Pro (Advanced Reasoning)</option>
                   <option value="gemini-3-flash">Gemini 3 Flash</option>
-                  <option value="gemini-3-ultra">Gemini 3 Ultra</option>
-                  <option value="gemini-3-preview">Gemini 3 Preview</option>
                 </optgroup>
                 <optgroup label="Gemini 2.x Series">
                   <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
